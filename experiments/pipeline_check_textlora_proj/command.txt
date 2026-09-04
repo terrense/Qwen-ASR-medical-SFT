@@ -1,0 +1,1 @@
+/data/shenxin/qwen3_asr_hospital/env_asr/bin/python scripts/run_experiment.py configs/pipeline_check_textlora_proj.yaml

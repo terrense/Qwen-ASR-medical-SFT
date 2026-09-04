@@ -1,0 +1,13 @@
+{
+  "experiment": "pipeline_check_dualpeft",
+  "config": "configs/pipeline_check_dualpeft.yaml",
+  "arm": "A7_dualpeft",
+  "elapsed_seconds": 81.29,
+  "evaluations": {
+    "pipeline_eval_aishell100": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/pipeline_check_dualpeft/pipeline_eval_aishell100"
+    }
+  },
+  "finished_at": "2026-09-04T02:21:45+0000"
+}

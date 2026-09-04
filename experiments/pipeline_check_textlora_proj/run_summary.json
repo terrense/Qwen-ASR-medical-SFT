@@ -1,0 +1,13 @@
+{
+  "experiment": "pipeline_check_textlora_proj",
+  "config": "configs/pipeline_check_textlora_proj.yaml",
+  "arm": "A6_text_lora_proj",
+  "elapsed_seconds": 60.97,
+  "evaluations": {
+    "pipeline_eval_aishell100": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/pipeline_check_textlora_proj/pipeline_eval_aishell100"
+    }
+  },
+  "finished_at": "2026-09-04T02:20:16+0000"
+}

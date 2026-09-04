@@ -1,0 +1,39 @@
+# Pipeline validation run, NOT a scientific result.
+# Trains A4 text-LoRA on 300 AISHELL-1 utterances purely to prove the training
+# stack works end to end: safety check -> training loop -> checkpoint save ->
+# adapter reload -> evaluation. The data is general-domain, so the CER it
+# produces means nothing for the hospital study.
+experiment_name: "pipeline_check_textlora"
+arm: "A4_text_lora"
+model_key: "qwen06"
+model_path: "models/Qwen3-ASR-0.6B"
+seed: 42
+dtype: "bfloat16"
+device: "cuda:0"
+train_manifest: "data/manifests/pipeline_train_aishell300.jsonl"
+dev_manifest: null
+data_budget: null
+augmented: false
+general_replay: false
+test_manifests:
+  - "data/manifests/pipeline_eval_aishell100.jsonl"
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+epochs: 1
+lr: 0.0001
+batch_size: 4
+grad_acc: 2
+warmup_ratio: 0.03
+scheduler: "cosine"
+gradient_checkpointing: false
+save_steps: 500
+save_total_limit: 1
+logging_steps: 5
+num_workers: 2
+prompt: ""
+eval_language: "Chinese"
+eval_context: ""
+lexicon: "data/medical_lexicon.json"
+output_dir: "experiments/pipeline_check_textlora"

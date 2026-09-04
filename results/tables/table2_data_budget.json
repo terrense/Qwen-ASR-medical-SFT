@@ -1,0 +1,44 @@
+{
+  "key": "table2_data_budget",
+  "title": "Data budget",
+  "caption": "CER (%) on the synthetic held-out test set against target-domain training hours. Subsets are nested: D1 subset of D5 subset of D10 subset of D20.",
+  "columns": [
+    "Adaptation",
+    "1 h",
+    "5 h",
+    "10 h",
+    "20 h"
+  ],
+  "rows": [
+    [
+      "A0 Zero-shot",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A1 Full SFT",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A4 Text-LoRA",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A7 DualPEFT",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ]
+  ],
+  "n_missing_cells": 16,
+  "n_cells": 20
+}

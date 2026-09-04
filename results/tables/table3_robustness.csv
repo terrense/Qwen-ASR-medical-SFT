@@ -1,0 +1,7 @@
+Test set,Zero-shot,DualPEFT 20 h,DualPEFT 20 h + aug
+Synthetic clean,XX,XX,XX
+Cross-TTS,XX,XX,XX
+Human quiet,XX,XX,XX
+Human far-field,XX,XX,XX
+Human noisy,XX,XX,XX
+Public noisy,XX,XX,XX

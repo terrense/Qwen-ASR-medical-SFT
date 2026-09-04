@@ -1,0 +1,78 @@
+==========================================================================
+ADAPTATION ARM: A7_dualpeft
+==========================================================================
+strategy            : LoRA on audio encoder attention + LoRA on text decoder attention + trainable audio projection
+audio root          : thinker.audio_tower
+text root           : thinker.model
+projection paths    : thinker.audio_tower.proj1, thinker.audio_tower.proj2
+audio LoRA regex    : ^thinker\.audio_tower\.layers\.\d+\.self_attn\.(k_proj|out_proj|q_proj|v_proj)$
+  matched modules   : 72
+text LoRA regex     : ^thinker\.model\.layers\.\d+\.self_attn\.(k_proj|o_proj|q_proj|v_proj)$
+  matched modules   : 112
+PEFT applied        : True
+LoRA r/alpha/drop   : 16 / 32 / 0.05
+--------------------------------------------------------------------------
+total parameters    : 789,078,016
+trainable parameters: 8,374,144
+trainable percentage: 1.061257%
+trainable tensors   : 372
+--------------------------------------------------------------------------
+trainable parameters by component:
+  AUDIO_ENCODER           2,064,384 params in  144 tensors
+  AUDIO_PROJECTION        1,722,240 params in    4 tensors
+  TEXT_DECODER            4,587,520 params in  224 tensors
+  OTHER                           -
+--------------------------------------------------------------------------
+trainable parameter names:
+  base_model.model.thinker.audio_tower.layers.0.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.out_proj.lora_B.default.weight
+  ... 332 more
+
+{
+  "batch_source": "synthetic noise (2s, seed 42)",
+  "loss": 8.358499526977539,
+  "n_params_with_gradient": 372,
+  "grad_components": {
+    "TEXT_DECODER": 224,
+    "AUDIO_ENCODER": 144,
+    "AUDIO_PROJECTION": 4
+  }
+}

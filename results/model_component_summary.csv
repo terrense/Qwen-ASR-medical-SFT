@@ -1,0 +1,6 @@
+component,n_linear_modules,linear_params,pct_of_all_model_params
+AUDIO_ENCODER,109,180434688,23.0609
+AUDIO_PROJECTION,2,1722240,0.2201
+TEXT_DECODER,197,595984384,76.1713
+OTHER,0,0,0.0
+"MODEL_TOTAL (all params, incl. non-Linear)",308,782426112,100.0

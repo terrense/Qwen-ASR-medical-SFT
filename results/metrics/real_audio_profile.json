@@ -1,0 +1,74 @@
+{
+  "audio_dir": "F:\\asr_final_20260807plus",
+  "n_files": 1987,
+  "n_failed": 0,
+  "total_hours": 1.868,
+  "duration": {
+    "min": 1.02,
+    "p10": 2.82,
+    "median": 2.96,
+    "p90": 5.01,
+    "max": 23.95,
+    "mean": 3.38
+  },
+  "snr_estimate_db": {
+    "min": 9.66,
+    "p10": 23.5,
+    "median": 46.03,
+    "p90": 71.34,
+    "max": 105.2,
+    "mean": 47.52
+  },
+  "spectral_centroid_hz": {
+    "min": 208.0,
+    "p10": 512.9,
+    "median": 711.8,
+    "p90": 884.3,
+    "max": 1495.8,
+    "mean": 717.77
+  },
+  "rolloff85_hz": {
+    "min": 252.4,
+    "p10": 647.6,
+    "median": 879.1,
+    "p90": 1223.6,
+    "max": 5028.4,
+    "mean": 929.68
+  },
+  "speech_ratio": {
+    "min": 0.13,
+    "p10": 0.34,
+    "median": 0.68,
+    "p90": 0.86,
+    "max": 0.9,
+    "mean": 0.64
+  },
+  "clipping_ratio": {
+    "min": 0.0,
+    "p10": 0.0,
+    "median": 0.0,
+    "p90": 0.0,
+    "max": 0.0,
+    "mean": 0.0
+  },
+  "decay_slope_db_per_s": {
+    "min": -768.3,
+    "p10": -301.4,
+    "median": -12.7,
+    "p90": 232.5,
+    "max": 728.9,
+    "mean": -23.39
+  },
+  "tiers": {
+    "likely_quiet": 1884,
+    "likely_farfield_or_muffled": 95,
+    "likely_moderate": 8
+  },
+  "tier_pct": {
+    "likely_quiet": 94.8,
+    "likely_farfield_or_muffled": 4.8,
+    "likely_moderate": 0.4
+  },
+  "failed": [],
+  "note": "SNR is an energy-ratio estimate from a single channel, not a true SNR; tiers are a starting point for annotators, and the human-confirmed condition is what Phase 13 reports."
+}

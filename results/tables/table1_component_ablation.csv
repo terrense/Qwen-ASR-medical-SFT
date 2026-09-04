@@ -1,0 +1,9 @@
+Adaptation,Trainable params,% of model,CER synth (%),CER cross-TTS (%),MTER (%),Entity recall (%)
+A0 Zero-shot,XX,XX,XX,XX,XX,XX
+A1 Full SFT,XX,XX,XX,XX,XX,XX
+A2 Audio-LoRA,XX,XX,XX,XX,XX,XX
+A3 Projection only,XX,XX,XX,XX,XX,XX
+A4 Text-LoRA,XX,XX,XX,XX,XX,XX
+A5 Audio-LoRA + Proj,XX,XX,XX,XX,XX,XX
+A6 Text-LoRA + Proj,XX,XX,XX,XX,XX,XX
+A7 DualPEFT,XX,XX,XX,XX,XX,XX

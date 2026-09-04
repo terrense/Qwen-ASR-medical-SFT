@@ -1,0 +1,108 @@
+==========================================================================
+EXPERIMENT pipeline_check_full
+config     : configs/pipeline_check_full.yaml
+arm        : A1_full_sft
+model      : models/Qwen3-ASR-0.6B
+budget     : None
+seed       : 42
+started    : 2026-09-04T02:28:17+0000
+==========================================================================
+train manifest: /data/shenxin/qwen3_asr_hospital/data/manifests/pipeline_train_aishell300.jsonl (300 utterances, 0.429 h)
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+==========================================================================
+ADAPTATION ARM: A1_full_sft
+==========================================================================
+strategy            : full fine-tuning (all parameters trainable)
+audio root          : thinker.audio_tower
+text root           : thinker.model
+projection paths    : thinker.audio_tower.proj1, thinker.audio_tower.proj2
+audio LoRA regex    : ^thinker\.audio_tower\.layers\.\d+\.self_attn\.(k_proj|out_proj|q_proj|v_proj)$
+  matched modules   : 72
+text LoRA regex     : ^thinker\.model\.layers\.\d+\.self_attn\.(k_proj|o_proj|q_proj|v_proj)$
+  matched modules   : 112
+PEFT applied        : False
+LoRA r/alpha/drop   : 16 / 32 / 0.05
+--------------------------------------------------------------------------
+total parameters    : 782,426,112
+trainable parameters: 782,426,112
+trainable percentage: 100.000000%
+trainable tensors   : 611
+--------------------------------------------------------------------------
+trainable parameters by component:
+  AUDIO_ENCODER         184,653,952 params in  297 tensors
+  AUDIO_PROJECTION        1,722,240 params in    4 tensors
+  TEXT_DECODER          596,049,920 params in  310 tensors
+  OTHER                           -
+--------------------------------------------------------------------------
+trainable parameter names:
+  thinker.audio_tower.layers.0.self_attn.k_proj.weight
+  thinker.audio_tower.layers.0.self_attn.k_proj.bias
+  thinker.audio_tower.layers.0.self_attn.v_proj.weight
+  thinker.audio_tower.layers.0.self_attn.v_proj.bias
+  thinker.audio_tower.layers.0.self_attn.q_proj.weight
+  thinker.audio_tower.layers.0.self_attn.q_proj.bias
+  thinker.audio_tower.layers.0.self_attn.out_proj.weight
+  thinker.audio_tower.layers.0.self_attn.out_proj.bias
+  thinker.audio_tower.layers.0.self_attn_layer_norm.weight
+  thinker.audio_tower.layers.0.self_attn_layer_norm.bias
+  thinker.audio_tower.layers.0.fc1.weight
+  thinker.audio_tower.layers.0.fc1.bias
+  thinker.audio_tower.layers.0.fc2.weight
+  thinker.audio_tower.layers.0.fc2.bias
+  thinker.audio_tower.layers.0.final_layer_norm.weight
+  thinker.audio_tower.layers.0.final_layer_norm.bias
+  thinker.audio_tower.layers.1.self_attn.k_proj.weight
+  thinker.audio_tower.layers.1.self_attn.k_proj.bias
+  thinker.audio_tower.layers.1.self_attn.v_proj.weight
+  thinker.audio_tower.layers.1.self_attn.v_proj.bias
+  thinker.audio_tower.layers.1.self_attn.q_proj.weight
+  thinker.audio_tower.layers.1.self_attn.q_proj.bias
+  thinker.audio_tower.layers.1.self_attn.out_proj.weight
+  thinker.audio_tower.layers.1.self_attn.out_proj.bias
+  thinker.audio_tower.layers.1.self_attn_layer_norm.weight
+  thinker.audio_tower.layers.1.self_attn_layer_norm.bias
+  thinker.audio_tower.layers.1.fc1.weight
+  thinker.audio_tower.layers.1.fc1.bias
+  thinker.audio_tower.layers.1.fc2.weight
+  thinker.audio_tower.layers.1.fc2.bias
+  thinker.audio_tower.layers.1.final_layer_norm.weight
+  thinker.audio_tower.layers.1.final_layer_norm.bias
+  thinker.audio_tower.layers.2.self_attn.k_proj.weight
+  thinker.audio_tower.layers.2.self_attn.k_proj.bias
+  thinker.audio_tower.layers.2.self_attn.v_proj.weight
+  thinker.audio_tower.layers.2.self_attn.v_proj.bias
+  thinker.audio_tower.layers.2.self_attn.q_proj.weight
+  thinker.audio_tower.layers.2.self_attn.q_proj.bias
+  thinker.audio_tower.layers.2.self_attn.out_proj.weight
+  thinker.audio_tower.layers.2.self_attn.out_proj.bias
+  ... 571 more
+
+safety check passed: initial loss 9.7277, gradients on 611 parameters
+sanitized generation_config for saving: cleared temperature, top_k, top_p
+Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+The model is already on multiple devices. Skipping the move to device specified in `args`.
+  0%|          | 0/38 [00:00<?, ?it/s]`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+  3%|2         | 1/38 [00:01<00:43,  1.18s/it]  5%|5         | 2/38 [00:02<00:37,  1.05s/it]  8%|7         | 3/38 [00:02<00:33,  1.06it/s] 11%|#         | 4/38 [00:03<00:29,  1.15it/s] 13%|#3        | 5/38 [00:04<00:25,  1.28it/s]                                              {'loss': 21.2996, 'grad_norm': 165.0, 'learning_rate': 9.924038765061042e-05, 'epoch': 0.13}
+ 13%|#3        | 5/38 [00:04<00:25,  1.28it/s] 16%|#5        | 6/38 [00:05<00:24,  1.33it/s] 18%|#8        | 7/38 [00:05<00:22,  1.39it/s] 21%|##1       | 8/38 [00:06<00:22,  1.35it/s] 24%|##3       | 9/38 [00:07<00:21,  1.38it/s] 26%|##6       | 10/38 [00:07<00:19,  1.45it/s]                                               {'loss': 12.3348, 'grad_norm': 159.0, 'learning_rate': 9.09576022144496e-05, 'epoch': 0.27}
+ 26%|##6       | 10/38 [00:07<00:19,  1.45it/s] 29%|##8       | 11/38 [00:08<00:17,  1.52it/s] 32%|###1      | 12/38 [00:08<00:16,  1.56it/s] 34%|###4      | 13/38 [00:09<00:15,  1.61it/s] 37%|###6      | 14/38 [00:10<00:14,  1.65it/s] 39%|###9      | 15/38 [00:10<00:13,  1.69it/s]                                               {'loss': 6.2869, 'grad_norm': 173.0, 'learning_rate': 7.500000000000001e-05, 'epoch': 0.4}
+ 39%|###9      | 15/38 [00:10<00:13,  1.69it/s] 42%|####2     | 16/38 [00:11<00:12,  1.71it/s] 45%|####4     | 17/38 [00:11<00:12,  1.70it/s] 47%|####7     | 18/38 [00:12<00:11,  1.71it/s] 50%|#####     | 19/38 [00:12<00:11,  1.70it/s] 53%|#####2    | 20/38 [00:13<00:10,  1.69it/s]                                               {'loss': 4.2121, 'grad_norm': 198.0, 'learning_rate': 5.435778713738292e-05, 'epoch': 0.53}
+ 53%|#####2    | 20/38 [00:13<00:10,  1.69it/s] 55%|#####5    | 21/38 [00:14<00:10,  1.66it/s] 58%|#####7    | 22/38 [00:14<00:09,  1.69it/s] 61%|######    | 23/38 [00:15<00:08,  1.71it/s] 63%|######3   | 24/38 [00:15<00:08,  1.70it/s] 66%|######5   | 25/38 [00:16<00:07,  1.68it/s]                                               {'loss': 2.1194, 'grad_norm': 114.5, 'learning_rate': 3.289899283371657e-05, 'epoch': 0.67}
+ 66%|######5   | 25/38 [00:16<00:07,  1.68it/s] 68%|######8   | 26/38 [00:17<00:07,  1.70it/s] 71%|#######1  | 27/38 [00:17<00:06,  1.70it/s] 74%|#######3  | 28/38 [00:18<00:05,  1.72it/s] 76%|#######6  | 29/38 [00:18<00:05,  1.73it/s] 79%|#######8  | 30/38 [00:19<00:04,  1.76it/s]                                               {'loss': 1.2068, 'grad_norm': 79.0, 'learning_rate': 1.4644660940672627e-05, 'epoch': 0.8}
+ 79%|#######8  | 30/38 [00:19<00:04,  1.76it/s] 82%|########1 | 31/38 [00:19<00:03,  1.77it/s] 84%|########4 | 32/38 [00:20<00:03,  1.77it/s] 87%|########6 | 33/38 [00:21<00:03,  1.63it/s] 89%|########9 | 34/38 [00:21<00:02,  1.57it/s] 92%|#########2| 35/38 [00:22<00:01,  1.52it/s]                                               {'loss': 1.0449, 'grad_norm': 68.5, 'learning_rate': 3.0153689607045845e-06, 'epoch': 0.93}
+ 92%|#########2| 35/38 [00:22<00:01,  1.52it/s] 95%|#########4| 36/38 [00:23<00:01,  1.42it/s] 97%|#########7| 37/38 [00:24<00:00,  1.36it/s]100%|##########| 38/38 [00:24<00:00,  1.58it/s]                                               {'train_runtime': 30.8468, 'train_samples_per_second': 9.725, 'train_steps_per_second': 1.232, 'train_loss': 6.445947797674882, 'epoch': 1.0}
+100%|##########| 38/38 [00:30<00:00,  1.58it/s]100%|##########| 38/38 [00:30<00:00,  1.23it/s]
+copied 5 sidecar files into the checkpoint so it can be reloaded: preprocessor_config.json, tokenizer_config.json, chat_template.json, merges.txt, vocab.json
+
+arm                 : A1_full_sft
+trainable parameters: 782,426,112 (100.0000%)
+train runtime       : 31.1 s (0.009 GPU-hours)
+peak VRAM           : 7.26 GiB
+wrote /data/shenxin/qwen3_asr_hospital/experiments/pipeline_check_full/metrics.json
+checkpoint is a standalone model; evaluating it directly
+
+=== evaluating on pipeline_eval_aishell100 ===
+
+==========================================================================
+FINISHED pipeline_check_full in 77.9 s
+  pipeline_eval_aishell100 {'returncode': 0, 'outdir': '/data/shenxin/qwen3_asr_hospital/experiments/pipeline_check_full/pipeline_eval_aishell100'}
+==========================================================================

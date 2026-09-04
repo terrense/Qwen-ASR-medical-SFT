@@ -1,0 +1,65 @@
+{
+  "key": "table6_model_scale",
+  "title": "Model scale transfer",
+  "caption": "Scale transfer. The full grid is deliberately not repeated at 1.7B.",
+  "columns": [
+    "Model",
+    "Adaptation",
+    "CER synth (%)",
+    "CER cross-TTS (%)",
+    "MTER (%)",
+    "Trainable params"
+  ],
+  "rows": [
+    [
+      "Qwen3-ASR-0.6B",
+      "A0 Zero-shot",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "Qwen3-ASR-0.6B",
+      "A7 DualPEFT 20h",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "Qwen3-ASR-0.6B",
+      "A1 Full SFT 20h",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "Qwen3-ASR-1.7B",
+      "A0 Zero-shot",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "Qwen3-ASR-1.7B",
+      "A7 DualPEFT 20h",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "Qwen3-ASR-1.7B",
+      "A1 Full SFT 20h",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ]
+  ],
+  "n_missing_cells": 24,
+  "n_cells": 36
+}

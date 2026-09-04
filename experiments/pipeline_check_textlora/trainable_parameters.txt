@@ -1,0 +1,74 @@
+==========================================================================
+ADAPTATION ARM: A4_text_lora
+==========================================================================
+strategy            : LoRA on text decoder attention
+audio root          : thinker.audio_tower
+text root           : thinker.model
+projection paths    : thinker.audio_tower.proj1, thinker.audio_tower.proj2
+audio LoRA regex    : ^thinker\.audio_tower\.layers\.\d+\.self_attn\.(k_proj|out_proj|q_proj|v_proj)$
+  matched modules   : 72
+text LoRA regex     : ^thinker\.model\.layers\.\d+\.self_attn\.(k_proj|o_proj|q_proj|v_proj)$
+  matched modules   : 112
+PEFT applied        : True
+LoRA r/alpha/drop   : 16 / 32 / 0.05
+--------------------------------------------------------------------------
+total parameters    : 787,013,632
+trainable parameters: 4,587,520
+trainable percentage: 0.582902%
+trainable tensors   : 224
+--------------------------------------------------------------------------
+trainable parameters by component:
+  AUDIO_ENCODER                   -
+  AUDIO_PROJECTION                -
+  TEXT_DECODER            4,587,520 params in  224 tensors
+  OTHER                           -
+--------------------------------------------------------------------------
+trainable parameter names:
+  base_model.model.thinker.model.layers.0.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.0.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.0.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.0.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.0.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.0.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.0.self_attn.o_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.0.self_attn.o_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.o_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.1.self_attn.o_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.o_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.2.self_attn.o_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.o_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.3.self_attn.o_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.o_proj.lora_A.default.weight
+  base_model.model.thinker.model.layers.4.self_attn.o_proj.lora_B.default.weight
+  ... 184 more
+
+safety check
+{
+  "initial_loss": 9.727690696716309,
+  "n_params_with_gradient": 112,
+  "batch_source": "first 2 manifest rows"
+}

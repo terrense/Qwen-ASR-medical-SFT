@@ -1,0 +1,17 @@
+{
+  "n_utterances": 7176,
+  "n_bootstrap_samples": 10000,
+  "seed": 42,
+  "confidence": 0.95,
+  "cer_a": 0.020999379563785614,
+  "cer_b": 0.015358182599150479,
+  "cer_difference": 0.005641196964635135,
+  "ci_lower": 0.004835719337143295,
+  "ci_upper": 0.006455067945567043,
+  "significant_at_confidence": true,
+  "p_value": 0.0,
+  "name_a": "Qwen3-ASR-0.6B",
+  "name_b": "Qwen3-ASR-1.7B",
+  "predictions_a": "experiments/qwen06_zero/test_aishell1/predictions.jsonl",
+  "predictions_b": "experiments/qwen17_zero/test_aishell1/predictions.jsonl"
+}

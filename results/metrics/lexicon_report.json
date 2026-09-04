@@ -1,0 +1,141 @@
+{
+  "n_terms": 417,
+  "n_categories": 7,
+  "terms_per_category": {
+    "imaging_exam": 47,
+    "lab_test": 57,
+    "disease": 101,
+    "medication": 76,
+    "department": 44,
+    "symptom": 77,
+    "abbreviation": 15
+  },
+  "category_collisions": {},
+  "dropped": [],
+  "normalization_fingerprint": "af7df2a2f6",
+  "longest_terms": [
+    "短暂性脑缺血发作",
+    "碳十三呼气试验",
+    "阿司匹林肠溶片",
+    "单硝酸异山梨酯",
+    "糖化血红蛋白",
+    "妊娠期糖尿病",
+    "类风湿关节炎",
+    "溃疡性结肠炎",
+    "肠易激综合征",
+    "上呼吸道感染",
+    "睡眠呼吸暂停",
+    "阿尔茨海默病",
+    "十二指肠溃疡",
+    "桥本甲状腺炎",
+    "反流性食管炎"
+  ],
+  "shortest_terms": [
+    "ct",
+    "彩超",
+    "胃镜",
+    "钼靶",
+    "b超",
+    "胸片",
+    "肠镜",
+    "x光",
+    "核磁",
+    "肌酐",
+    "血型",
+    "血糖",
+    "甲功",
+    "血沉",
+    "尿酸"
+  ],
+  "corpus_coverage": {
+    "scripts_file": "F:\\qwen3_asr_hospital\\data\\scripts\\all_scripts.jsonl",
+    "n_scripts": 17984,
+    "n_scripts_with_at_least_one_term": 15633,
+    "pct_scripts_with_terms": 86.93,
+    "n_distinct_terms_seen": 417,
+    "n_terms_never_seen": 0,
+    "most_frequent": [
+      [
+        "儿科",
+        252
+      ],
+      [
+        "内科",
+        161
+      ],
+      [
+        "外科",
+        144
+      ],
+      [
+        "psa",
+        110
+      ],
+      [
+        "tsh",
+        106
+      ],
+      [
+        "心悸",
+        106
+      ],
+      [
+        "畏寒",
+        104
+      ],
+      [
+        "ca199",
+        103
+      ],
+      [
+        "cea",
+        103
+      ],
+      [
+        "多梦",
+        103
+      ],
+      [
+        "反酸",
+        102
+      ],
+      [
+        "发热",
+        102
+      ],
+      [
+        "食欲不振",
+        100
+      ],
+      [
+        "ca125",
+        99
+      ],
+      [
+        "ast",
+        99
+      ],
+      [
+        "声音嘶哑",
+        99
+      ],
+      [
+        "mri",
+        98
+      ],
+      [
+        "黑便",
+        98
+      ],
+      [
+        "嗓子疼",
+        97
+      ],
+      [
+        "咳痰",
+        97
+      ]
+    ],
+    "never_seen_sample": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source": "data/public/aishell1_parquet/data",
+  "split": "test",
+  "transcript_source": "data/public/aishell1_parquet/data",
+  "wav_dir": "/data/shenxin/qwen3_asr_hospital/data/public/aishell1_test_wav",
+  "n_utterances": 7176,
+  "n_speakers": 20,
+  "n_missing_transcript": 0,
+  "missing_transcript_sample": [],
+  "total_hours": 10.0303,
+  "limit": null,
+  "seed": 42,
+  "manifest": "/data/shenxin/qwen3_asr_hospital/data/public/aishell1_test.jsonl",
+  "utt_id_list": "/data/shenxin/qwen3_asr_hospital/data/public/aishell1_test.utt_ids.txt",
+  "duration_probed": true
+}

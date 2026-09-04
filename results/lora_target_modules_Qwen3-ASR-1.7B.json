@@ -1,0 +1,56 @@
+{
+  "model_path": "models/Qwen3-ASR-1.7B",
+  "dtype": "float32",
+  "total_parameters": 2038052480,
+  "roots": {
+    "audio_root": "thinker.audio_tower",
+    "text_root": "thinker.model",
+    "d_model": 1024,
+    "output_dim": 2048,
+    "projection_paths": [
+      "thinker.audio_tower.proj1",
+      "thinker.audio_tower.proj2"
+    ]
+  },
+  "leaf_name_collisions": {
+    "k_proj": [
+      "AUDIO_ENCODER",
+      "TEXT_DECODER"
+    ],
+    "v_proj": [
+      "AUDIO_ENCODER",
+      "TEXT_DECODER"
+    ],
+    "q_proj": [
+      "AUDIO_ENCODER",
+      "TEXT_DECODER"
+    ]
+  },
+  "lora_targets": {
+    "audio_attention_regex": "^thinker\\.audio_tower\\.layers\\.\\d+\\.self_attn\\.(k_proj|out_proj|q_proj|v_proj)$",
+    "text_attention_regex": "^thinker\\.model\\.layers\\.\\d+\\.self_attn\\.(k_proj|o_proj|q_proj|v_proj)$",
+    "audio_attention_leaves": [
+      "k_proj",
+      "out_proj",
+      "q_proj",
+      "v_proj"
+    ],
+    "text_attention_leaves": [
+      "k_proj",
+      "o_proj",
+      "q_proj",
+      "v_proj"
+    ],
+    "audio_regex_n_matched": 96,
+    "text_regex_n_matched": 112,
+    "projection_module_paths": [
+      "thinker.audio_tower.proj1",
+      "thinker.audio_tower.proj2"
+    ],
+    "naive_qv_target_n_matched": 104,
+    "naive_qv_target_components": [
+      "AUDIO_ENCODER",
+      "TEXT_DECODER"
+    ]
+  }
+}

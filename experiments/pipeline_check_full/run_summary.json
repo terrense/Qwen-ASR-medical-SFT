@@ -1,0 +1,13 @@
+{
+  "experiment": "pipeline_check_full",
+  "config": "configs/pipeline_check_full.yaml",
+  "arm": "A1_full_sft",
+  "elapsed_seconds": 77.86,
+  "evaluations": {
+    "pipeline_eval_aishell100": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/pipeline_check_full/pipeline_eval_aishell100"
+    }
+  },
+  "finished_at": "2026-09-04T02:29:35+0000"
+}

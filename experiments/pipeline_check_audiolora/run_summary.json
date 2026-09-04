@@ -1,0 +1,13 @@
+{
+  "experiment": "pipeline_check_audiolora",
+  "config": "configs/pipeline_check_audiolora.yaml",
+  "arm": "A2_audio_lora",
+  "elapsed_seconds": 65.99,
+  "evaluations": {
+    "pipeline_eval_aishell100": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/pipeline_check_audiolora/pipeline_eval_aishell100"
+    }
+  },
+  "finished_at": "2026-09-04T02:17:02+0000"
+}

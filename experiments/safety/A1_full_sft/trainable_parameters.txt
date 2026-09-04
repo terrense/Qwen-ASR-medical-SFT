@@ -1,0 +1,78 @@
+==========================================================================
+ADAPTATION ARM: A1_full_sft
+==========================================================================
+strategy            : full fine-tuning (all parameters trainable)
+audio root          : thinker.audio_tower
+text root           : thinker.model
+projection paths    : thinker.audio_tower.proj1, thinker.audio_tower.proj2
+audio LoRA regex    : ^thinker\.audio_tower\.layers\.\d+\.self_attn\.(k_proj|out_proj|q_proj|v_proj)$
+  matched modules   : 72
+text LoRA regex     : ^thinker\.model\.layers\.\d+\.self_attn\.(k_proj|o_proj|q_proj|v_proj)$
+  matched modules   : 112
+PEFT applied        : False
+LoRA r/alpha/drop   : 16 / 32 / 0.05
+--------------------------------------------------------------------------
+total parameters    : 782,426,112
+trainable parameters: 782,426,112
+trainable percentage: 100.000000%
+trainable tensors   : 611
+--------------------------------------------------------------------------
+trainable parameters by component:
+  AUDIO_ENCODER         184,653,952 params in  297 tensors
+  AUDIO_PROJECTION        1,722,240 params in    4 tensors
+  TEXT_DECODER          596,049,920 params in  310 tensors
+  OTHER                           -
+--------------------------------------------------------------------------
+trainable parameter names:
+  thinker.audio_tower.layers.0.self_attn.k_proj.weight
+  thinker.audio_tower.layers.0.self_attn.k_proj.bias
+  thinker.audio_tower.layers.0.self_attn.v_proj.weight
+  thinker.audio_tower.layers.0.self_attn.v_proj.bias
+  thinker.audio_tower.layers.0.self_attn.q_proj.weight
+  thinker.audio_tower.layers.0.self_attn.q_proj.bias
+  thinker.audio_tower.layers.0.self_attn.out_proj.weight
+  thinker.audio_tower.layers.0.self_attn.out_proj.bias
+  thinker.audio_tower.layers.0.self_attn_layer_norm.weight
+  thinker.audio_tower.layers.0.self_attn_layer_norm.bias
+  thinker.audio_tower.layers.0.fc1.weight
+  thinker.audio_tower.layers.0.fc1.bias
+  thinker.audio_tower.layers.0.fc2.weight
+  thinker.audio_tower.layers.0.fc2.bias
+  thinker.audio_tower.layers.0.final_layer_norm.weight
+  thinker.audio_tower.layers.0.final_layer_norm.bias
+  thinker.audio_tower.layers.1.self_attn.k_proj.weight
+  thinker.audio_tower.layers.1.self_attn.k_proj.bias
+  thinker.audio_tower.layers.1.self_attn.v_proj.weight
+  thinker.audio_tower.layers.1.self_attn.v_proj.bias
+  thinker.audio_tower.layers.1.self_attn.q_proj.weight
+  thinker.audio_tower.layers.1.self_attn.q_proj.bias
+  thinker.audio_tower.layers.1.self_attn.out_proj.weight
+  thinker.audio_tower.layers.1.self_attn.out_proj.bias
+  thinker.audio_tower.layers.1.self_attn_layer_norm.weight
+  thinker.audio_tower.layers.1.self_attn_layer_norm.bias
+  thinker.audio_tower.layers.1.fc1.weight
+  thinker.audio_tower.layers.1.fc1.bias
+  thinker.audio_tower.layers.1.fc2.weight
+  thinker.audio_tower.layers.1.fc2.bias
+  thinker.audio_tower.layers.1.final_layer_norm.weight
+  thinker.audio_tower.layers.1.final_layer_norm.bias
+  thinker.audio_tower.layers.2.self_attn.k_proj.weight
+  thinker.audio_tower.layers.2.self_attn.k_proj.bias
+  thinker.audio_tower.layers.2.self_attn.v_proj.weight
+  thinker.audio_tower.layers.2.self_attn.v_proj.bias
+  thinker.audio_tower.layers.2.self_attn.q_proj.weight
+  thinker.audio_tower.layers.2.self_attn.q_proj.bias
+  thinker.audio_tower.layers.2.self_attn.out_proj.weight
+  thinker.audio_tower.layers.2.self_attn.out_proj.bias
+  ... 571 more
+
+{
+  "batch_source": "synthetic noise (2s, seed 42)",
+  "loss": 8.358499526977539,
+  "n_params_with_gradient": 611,
+  "grad_components": {
+    "TEXT_DECODER": 310,
+    "AUDIO_ENCODER": 297,
+    "AUDIO_PROJECTION": 4
+  }
+}

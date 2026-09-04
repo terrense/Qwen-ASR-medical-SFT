@@ -1,0 +1,40 @@
+{
+  "baseline_rules": {
+    "nfkc": true,
+    "strip_punctuation": true,
+    "lowercase": true,
+    "remove_whitespace": true,
+    "traditional_to_simplified": false,
+    "normalize_numbers": false,
+    "keep_digit_separators": true,
+    "strip_language_tag": true
+  },
+  "variant_rules": {
+    "nfkc": true,
+    "strip_punctuation": true,
+    "lowercase": true,
+    "remove_whitespace": true,
+    "traditional_to_simplified": false,
+    "normalize_numbers": true,
+    "keep_digit_separators": true,
+    "strip_language_tag": true
+  },
+  "baseline_fingerprint": "c2a1a0f12d",
+  "variant_fingerprint": "23d18e8742",
+  "results": {
+    "experiments/qwen06_zero/test_aishell1/predictions.jsonl": {
+      "n_utterances": 7176,
+      "cer_default": 0.020999379563785614,
+      "cer_variant": 0.02144688713752404,
+      "absolute_reduction": -0.0004475075737384246,
+      "relative_reduction": -0.021310514073957298
+    },
+    "experiments/qwen17_zero/test_aishell1/predictions.jsonl": {
+      "n_utterances": 7176,
+      "cer_default": 0.015358182599150479,
+      "cer_variant": 0.015309777895094084,
+      "absolute_reduction": 4.840470405639494e-05,
+      "relative_reduction": 0.0031517208331064113
+    }
+  }
+}

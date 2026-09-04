@@ -1,0 +1,65 @@
+{
+  "key": "table4_terminology",
+  "title": "Medical terminology error by category",
+  "caption": "Medical-term error rate (%) by term category on the synthetic held-out test set. Term inventory is fixed before any model is run.",
+  "columns": [
+    "Term category",
+    "A0 Zero-shot",
+    "A1 Full SFT",
+    "A4 Text-LoRA",
+    "A7 DualPEFT"
+  ],
+  "rows": [
+    [
+      "imaging_exam",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "lab_test",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "disease",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "medication",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "department",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "symptom",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "abbreviation",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ]
+  ],
+  "n_missing_cells": 28,
+  "n_cells": 35
+}

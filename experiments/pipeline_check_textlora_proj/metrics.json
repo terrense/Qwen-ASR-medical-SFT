@@ -1,0 +1,129 @@
+{
+  "arm": "A6_text_lora_proj",
+  "config": {
+    "experiment_name": "pipeline_check_textlora_proj",
+    "arm": "A6_text_lora_proj",
+    "model_key": "qwen06",
+    "model_path": "/data/shenxin/qwen3_asr_hospital/models/Qwen3-ASR-0.6B",
+    "seed": 42,
+    "dtype": "bfloat16",
+    "device": "cuda:0",
+    "train_manifest": "/data/shenxin/qwen3_asr_hospital/data/manifests/pipeline_train_aishell300.jsonl",
+    "dev_manifest": null,
+    "data_budget": null,
+    "augmented": false,
+    "general_replay": false,
+    "test_manifests": [
+      "data/manifests/pipeline_eval_aishell100.jsonl"
+    ],
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.05
+    },
+    "epochs": 1,
+    "lr": 0.0001,
+    "batch_size": 4,
+    "grad_acc": 2,
+    "warmup_ratio": 0.03,
+    "scheduler": "cosine",
+    "gradient_checkpointing": false,
+    "save_steps": 500,
+    "save_total_limit": 1,
+    "logging_steps": 5,
+    "num_workers": 2,
+    "prompt": "",
+    "eval_language": "Chinese",
+    "eval_context": "",
+    "lexicon": "data/medical_lexicon.json",
+    "output_dir": "experiments/pipeline_check_textlora_proj"
+  },
+  "initial_loss": 9.727690696716309,
+  "train_runtime_seconds": 13.69,
+  "gpu_hours": 0.0038,
+  "peak_vram_gib": 4.371,
+  "total_parameters": 787013632,
+  "trainable_parameters": 6309760,
+  "trainable_percentage": 0.8017345244662801,
+  "trainable_by_component": {
+    "AUDIO_PROJECTION": {
+      "n_params": 1722240,
+      "n_tensors": 4
+    },
+    "TEXT_DECODER": {
+      "n_params": 4587520,
+      "n_tensors": 224
+    }
+  },
+  "n_train_utterances": 300,
+  "train_hours_audio": 0.4291,
+  "hf_train_metrics": {
+    "train_runtime": 13.3852,
+    "train_samples_per_second": 22.413,
+    "train_steps_per_second": 2.839,
+    "total_flos": 133130947461120.0,
+    "train_loss": 6.126231871153179,
+    "epoch": 1.0
+  },
+  "log_history": [
+    {
+      "loss": 11.7784,
+      "grad_norm": 63.59646224975586,
+      "learning_rate": 9.924038765061042e-05,
+      "epoch": 0.13333333333333333,
+      "step": 5
+    },
+    {
+      "loss": 7.8312,
+      "grad_norm": 15.821019172668457,
+      "learning_rate": 9.09576022144496e-05,
+      "epoch": 0.26666666666666666,
+      "step": 10
+    },
+    {
+      "loss": 5.3416,
+      "grad_norm": 16.53118133544922,
+      "learning_rate": 7.500000000000001e-05,
+      "epoch": 0.4,
+      "step": 15
+    },
+    {
+      "loss": 5.6655,
+      "grad_norm": 6.53293514251709,
+      "learning_rate": 5.435778713738292e-05,
+      "epoch": 0.5333333333333333,
+      "step": 20
+    },
+    {
+      "loss": 4.8284,
+      "grad_norm": 8.600349426269531,
+      "learning_rate": 3.289899283371657e-05,
+      "epoch": 0.6666666666666666,
+      "step": 25
+    },
+    {
+      "loss": 4.1902,
+      "grad_norm": 5.575137615203857,
+      "learning_rate": 1.4644660940672627e-05,
+      "epoch": 0.8,
+      "step": 30
+    },
+    {
+      "loss": 4.2318,
+      "grad_norm": 7.03286075592041,
+      "learning_rate": 3.0153689607045845e-06,
+      "epoch": 0.9333333333333333,
+      "step": 35
+    },
+    {
+      "train_runtime": 13.3852,
+      "train_samples_per_second": 22.413,
+      "train_steps_per_second": 2.839,
+      "total_flos": 133130947461120.0,
+      "train_loss": 6.126231871153179,
+      "epoch": 1.0,
+      "step": 38
+    }
+  ],
+  "finished_at": "2026-09-04T02:19:43+0000"
+}

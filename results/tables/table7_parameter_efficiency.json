@@ -1,0 +1,90 @@
+{
+  "key": "table7_parameter_efficiency",
+  "title": "Parameter efficiency",
+  "caption": "Cost against benefit at the 20 h budget on Qwen3-ASR-0.6B.",
+  "columns": [
+    "Adaptation",
+    "Trainable params",
+    "% of model",
+    "Peak VRAM (GiB)",
+    "GPU hours",
+    "CER (%)",
+    "CER reduction vs zero-shot (pp)"
+  ],
+  "rows": [
+    [
+      "A0 Zero-shot",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A1 Full SFT",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A2 Audio-LoRA",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A3 Projection only",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A4 Text-LoRA",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A5 Audio-LoRA + Proj",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A6 Text-LoRA + Proj",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ],
+    [
+      "A7 DualPEFT",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX",
+      "XX"
+    ]
+  ],
+  "n_missing_cells": 48,
+  "n_cells": 56
+}
