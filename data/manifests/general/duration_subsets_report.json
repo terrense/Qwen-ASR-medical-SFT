@@ -1,0 +1,73 @@
+{
+  "source_manifest": "data/public/aishell1_train.jsonl",
+  "seed": 42,
+  "pool_utterances": 20592,
+  "pool_hours": 25.5533,
+  "nesting_verified": true,
+  "subsets": {
+    "D1": {
+      "target_hours": 1.0,
+      "actual_hours": 1.0004,
+      "n_utterances": 810,
+      "n_speakers": 60,
+      "manifest": "data/manifests/general/train_1h.jsonl",
+      "utt_id_list": "data/manifests/general/subset_ids/D1_utt_ids.txt",
+      "by_category": {
+        "general": 810
+      },
+      "by_category_pct": {
+        "general": 100.0
+      },
+      "speaker_min": 13,
+      "speaker_max": 14
+    },
+    "D5": {
+      "target_hours": 5.0,
+      "actual_hours": 5.0002,
+      "n_utterances": 4001,
+      "n_speakers": 60,
+      "manifest": "data/manifests/general/train_5h.jsonl",
+      "utt_id_list": "data/manifests/general/subset_ids/D5_utt_ids.txt",
+      "by_category": {
+        "general": 4001
+      },
+      "by_category_pct": {
+        "general": 100.0
+      },
+      "speaker_min": 66,
+      "speaker_max": 67
+    },
+    "D10": {
+      "target_hours": 10.0,
+      "actual_hours": 10.0008,
+      "n_utterances": 8029,
+      "n_speakers": 60,
+      "manifest": "data/manifests/general/train_10h.jsonl",
+      "utt_id_list": "data/manifests/general/subset_ids/D10_utt_ids.txt",
+      "by_category": {
+        "general": 8029
+      },
+      "by_category_pct": {
+        "general": 100.0
+      },
+      "speaker_min": 133,
+      "speaker_max": 134
+    },
+    "D20": {
+      "target_hours": 20.0,
+      "actual_hours": 20.0009,
+      "n_utterances": 16052,
+      "n_speakers": 60,
+      "manifest": "data/manifests/general/train_20h.jsonl",
+      "utt_id_list": "data/manifests/general/subset_ids/D20_utt_ids.txt",
+      "by_category": {
+        "general": 16052
+      },
+      "by_category_pct": {
+        "general": 100.0
+      },
+      "speaker_min": 266,
+      "speaker_max": 268
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source": "data/public/aishell1_parquet/data",
+  "split": "train",
+  "transcript_source": "data/public/aishell1_parquet/data",
+  "wav_dir": "/data/shenxin/qwen3_asr_hospital/data/public/aishell1_train_wav",
+  "n_utterances": 20592,
+  "n_speakers": 60,
+  "n_missing_transcript": 0,
+  "missing_transcript_sample": [],
+  "total_hours": 25.5533,
+  "limit": null,
+  "seed": 42,
+  "manifest": "data/public/aishell1_train.jsonl",
+  "utt_id_list": "data/public/aishell1_train.utt_ids.txt",
+  "duration_probed": true
+}

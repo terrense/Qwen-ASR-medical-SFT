@@ -26,6 +26,3 @@ nohup.out
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-
-# 仓库自身的备份副本,不入库
-*.bundle

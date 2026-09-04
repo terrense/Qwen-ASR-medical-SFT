@@ -1,0 +1,36 @@
+# 通用域(AISHELL-1)组件消融, 1小时预算. 不是医院域结果, 用于在医院数据到位前
+# 观察七个组件配置在低资源下的相对行为, 并作为论文的通用域对照.
+experiment_name: "general_textlora_1h"
+arm: "A4_text_lora"
+model_key: "qwen06"
+model_path: "models/Qwen3-ASR-0.6B"
+seed: 42
+dtype: "bfloat16"
+device: "cuda:0"
+train_manifest: "data/manifests/general/train_1h.jsonl"
+dev_manifest: null
+data_budget: "1h"
+augmented: false
+general_replay: false
+test_manifests:
+  - "data/manifests/test_aishell1.jsonl"
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+epochs: 3
+lr: 0.0001
+batch_size: 8
+grad_acc: 2
+warmup_ratio: 0.03
+scheduler: "cosine"
+gradient_checkpointing: false
+save_steps: 1000
+save_total_limit: 1
+logging_steps: 20
+num_workers: 4
+prompt: ""
+eval_language: "Chinese"
+eval_context: ""
+lexicon: "data/medical_lexicon.json"
+output_dir: "experiments/general_textlora_1h"
