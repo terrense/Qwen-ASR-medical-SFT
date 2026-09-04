@@ -26,3 +26,4 @@ nohup.out
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+data/public/rirs_noises/
