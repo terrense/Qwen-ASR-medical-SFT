@@ -22,7 +22,7 @@ lora:
   alpha: 32
   dropout: 0.05
 epochs: 2
-lr: 2e-05
+lr: 2.0e-05
 batch_size: 8
 grad_acc: 4
 warmup_ratio: 0.03

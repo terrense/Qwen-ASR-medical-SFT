@@ -38,6 +38,44 @@ _ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_ROOT / "src"))
 
 
+_FLOAT_FIELDS = ("lr", "warmup_ratio", "weight_decay")
+_INT_FIELDS = ("seed", "epochs", "batch_size", "grad_acc", "save_steps",
+               "save_total_limit", "logging_steps", "num_workers", "limit")
+
+
+def _coerce_numerics(cfg):
+    """Force known numeric fields to real numbers.
+
+    YAML 1.1 parses "2e-05" as a string because the mantissa has no decimal
+    point, so a learning rate written that way reaches TrainingArguments as
+    str and fails deep inside training with an unhelpful type error. Rather
+    than rely on every config being written correctly, coerce here.
+    """
+    if not isinstance(cfg, dict):
+        return cfg
+    for field in _FLOAT_FIELDS:
+        if isinstance(cfg.get(field), str):
+            try:
+                cfg[field] = float(cfg[field])
+                print("coerced %s to float: %s" % (field, cfg[field]))
+            except ValueError:
+                pass
+    for field in _INT_FIELDS:
+        if isinstance(cfg.get(field), str):
+            try:
+                cfg[field] = int(float(cfg[field]))
+            except ValueError:
+                pass
+    lora = cfg.get("lora")
+    if isinstance(lora, dict):
+        for field in ("r", "alpha"):
+            if isinstance(lora.get(field), str):
+                lora[field] = int(float(lora[field]))
+        if isinstance(lora.get("dropout"), str):
+            lora["dropout"] = float(lora["dropout"])
+    return cfg
+
+
 def load_config(path):
     """Read the generated YAML. Uses PyYAML when present, else a small parser.
 
@@ -49,7 +87,7 @@ def load_config(path):
     try:
         import yaml
 
-        return yaml.safe_load(text)
+        return _coerce_numerics(yaml.safe_load(text))
     except ImportError:
         pass
 

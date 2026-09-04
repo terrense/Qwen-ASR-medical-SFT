@@ -85,6 +85,17 @@ def _scalar(value):
         return "true" if value else "false"
     if isinstance(value, str):
         return '"%s"' % value
+    if isinstance(value, float):
+        # YAML 1.1 only recognises scientific notation when the mantissa has a
+        # decimal point: "2e-05" parses as a *string*, not a number. That went
+        # unnoticed because str(1e-4) is "0.0001" (fine) while str(2e-5) is
+        # "2e-05" (broken), so only the full-SFT learning rate was affected and
+        # it failed at TrainingArguments with a float/str comparison error.
+        text = repr(value)
+        if "e" in text and "." not in text.split("e")[0]:
+            mantissa, exponent = text.split("e")
+            text = "%s.0e%s" % (mantissa, exponent)
+        return text
     return str(value)
 
 
