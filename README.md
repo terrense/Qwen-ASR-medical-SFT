@@ -6,8 +6,6 @@
 
 **Component-wise parameter-efficient adaptation for low-resource Chinese hospital-domain ASR**
 
-组件级参数高效适配 · 低资源中文医院域语音识别
-
 [![status](https://img.shields.io/badge/status-work%20in%20progress-orange?style=flat-square)](EXPERIMENT_STATUS.md)
 [![model](https://img.shields.io/badge/Qwen3--ASR-0.6B%20%7C%201.7B-5A4FCF?style=flat-square)](https://github.com/QwenLM)
 [![peft](https://img.shields.io/badge/PEFT-LoRA%20r16-5A4FCF?style=flat-square)](configs/)
@@ -40,7 +38,7 @@
 Not *whether* fine-tuning Qwen3-ASR helps. **Which component to adapt.**
 
 ```
- waveform ──▶ ┌──────────────────┐ ──▶ ┌────────────┐ ──▶ ┌──────────────────┐ ──▶ 汉字
+ waveform ──▶ ┌──────────────────┐ ──▶ ┌────────────┐ ──▶ ┌──────────────────┐ ──▶ text
               │  AUDIO ENCODER   │     │ PROJECTION │     │  TEXT DECODER    │
               │  18 layers       │     │ 896→896    │     │  28 Qwen3 layers │
               │                  │     │ 896→1024   │     │  + lm_head       │
@@ -55,7 +53,7 @@ three different things to fix:
 | If the bottleneck is… | Symptom | Then adapt | Arm |
 |---|---|---|---|
 | 🔊 **Acoustics** | ward noise, masks, monitor beeps, accent | audio encoder | `A2` |
-| 📖 **Language** | 布洛芬缓释胶囊 / 增强CT / 窦性心律不齐 heard right, written wrong | text decoder | `A4` |
+| 📖 **Language** | terms heard right, written wrong — 布洛芬缓释胶囊 *(ibuprofen SR capsules)*, 增强CT *(contrast-enhanced CT)*, 窦性心律不齐 *(sinus arrhythmia)* | text decoder | `A4` |
 | 🔗 **Alignment** | both halves fine, the bridge is miscalibrated for the domain | projection head | `A3` |
 
 The third is the interesting one. The projection head is **1,722,240 parameters —
@@ -174,7 +172,8 @@ vocabulary — `A3` converged *above* it. Cause and fix below.
 <|im_start|>system\n<|im_end|>\n<|im_start|>user\n<|audio_start|>
   <|audio_pad|> × N            ← N = 26…54, scales with audio length
 <|audio_end|><|im_end|>\n<|im_start|>assistant\n
-  但考虑到目前的价格水平<|im_end|>    ← ONLY this may enter the loss
+  但考虑到目前的价格水平<|im_end|>    ← the transcript. ONLY this may enter the loss
+                                     ("but considering the current price level")
 ```
 
 Everything before the transcript is conditioning and must be masked to `-100`.
@@ -369,8 +368,9 @@ figure can be dominated by long utterances. Empty references are excluded and
 counted, never scored as 0.0 or 1.0.
 
 **Terminology** — medical-term error rate uses multiset matching over the
-417-term lexicon with longest-match-first masking, so a hit on `增强ct` does not
-also count as a hit on `ct`. Reported separately from CER on purpose: an
+417-term lexicon with longest-match-first masking, so a hit on `增强ct`
+*(contrast-enhanced CT)* does not also count as a hit on the substring `ct`.
+Reported separately from CER on purpose: an
 utterance can score 16.7% CER while missing 50% of its medical terms, and that
 gap is a finding.
 
@@ -428,28 +428,28 @@ results/                 predictions, metrics, figures, tables
 <td align="center" width="50%">
 <a href="https://github.com/terrense">
 <img src="https://github.com/terrense.png?size=180" width="120" alt=""><br>
-<b>沈鑫 · terrense</b>
+<b>Shen Xin 沈鑫</b>
 </a><br>
-<sub><b>后训练算法 · Post-training</b></sub><br>
-<sub>组件级适配设计 · 梯度隔离验证</sub><br>
-<sub>训练与评测栈 · 统计分析</sub>
+<sub><b>Post-training algorithms</b></sub><br>
+<sub>Component adaptation design · gradient isolation</sub><br>
+<sub>Training &amp; evaluation stack · statistics</sub>
 </td>
 <td align="center" width="50%">
 <a href="https://github.com/NaYangyeee">
 <img src="https://github.com/NaYangyeee.png?size=180" width="120" alt=""><br>
-<b>娜样 · NaYangyeee</b>
+<b>Na Yang 娜样</b>
 </a><br>
-<sub><b>SFT · LoRA 调参 · 数据准备</b></sub><br>
-<sub>监督微调 · LoRA 超参搜索</sub><br>
-<sub>数据清洗与语料准备</sub>
+<sub><b>SFT · LoRA tuning · data</b></sub><br>
+<sub>Supervised fine-tuning · LoRA hyperparameter search</sub><br>
+<sub>Data cleaning &amp; corpus preparation</sub>
 </td>
 </tr>
 </table>
 
 | | Contributor | Focus |
 |:--:|---|---|
-| <img src="https://github.com/terrense.png?size=64" width="28"> | [沈鑫 · @terrense](https://github.com/terrense) | Post-training algorithms, component adaptation design, training & evaluation stack |
-| <img src="https://github.com/NaYangyeee.png?size=64" width="28"> | [娜样 · @NaYangyeee](https://github.com/NaYangyeee) | Supervised fine-tuning, LoRA hyperparameter search, data cleaning & preparation |
+| <img src="https://github.com/terrense.png?size=64" width="28"> | [@terrense](https://github.com/terrense) | Post-training algorithms, component adaptation design, training & evaluation stack |
+| <img src="https://github.com/NaYangyeee.png?size=64" width="28"> | [@NaYangyeee](https://github.com/NaYangyeee) | Supervised fine-tuning, LoRA hyperparameter search, data cleaning & preparation |
 
 ---
 
