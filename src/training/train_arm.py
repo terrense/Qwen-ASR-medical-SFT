@@ -56,6 +56,14 @@ class Collator:
     appended, and every prefix or padding position is masked to -100 so the loss
     covers only the transcription. Keeping this identical to the reference
     implementation is what makes the arms comparable to a standard fine-tune.
+
+    The supervised span is anchored to the END of the real tokens, not to
+    offset 0. ``Qwen3ASRProcessorKwargs._defaults["text_kwargs"]`` sets
+    ``padding_side="left"``, which overrides the tokenizer's own "right", so a
+    left-anchored ``labels[:, :prefix_len] = -100`` lands on padding and leaves
+    the entire prefix -- chat scaffolding and every ``<|audio_pad|>`` --
+    supervised. That inflated the loss by 4x at batch size 8 and invalidated
+    the 2026-09-04 seven-arm run.
     """
 
     def __init__(self, processor, sample_rate=16000, prompt=""):
@@ -83,14 +91,32 @@ class Collator:
         prefix = self.processor(text=list(prefix_texts), audio=audios,
                                 return_tensors="pt", padding=True, truncation=False)
 
-        labels = full["input_ids"].clone()
-        for i, prefix_len in enumerate(prefix["attention_mask"].sum(dim=1).tolist()):
-            labels[i, :int(prefix_len)] = -100
-        pad_id = self.processor.tokenizer.pad_token_id
-        if pad_id is not None:
-            labels[labels == pad_id] = -100
-        full["labels"] = labels
+        full["labels"] = build_labels(full, prefix)
         return full
+
+
+def build_labels(full, prefix):
+    """Mask everything except the target tokens at the end of each row.
+
+    The two processor calls pad to their own batch maxima, so an index taken
+    from the prefix batch cannot be used as an offset into the full batch
+    unless both are right-padded. Locating the target by counting back from the
+    last real token is correct under either padding side.
+    """
+    input_ids = full["input_ids"]
+    attn = full["attention_mask"]
+    n_targets = (attn.sum(dim=1) - prefix["attention_mask"].sum(dim=1)).tolist()
+
+    labels = torch.full_like(input_ids, -100)
+    for i, n_target in enumerate(int(n) for n in n_targets):
+        if n_target <= 0:
+            raise AssertionError(
+                "row %d has no target tokens (full=%d, prefix=%d); the prefix "
+                "and full encodings disagree"
+                % (i, int(attn[i].sum()), int(prefix["attention_mask"][i].sum())))
+        end = int(attn[i].nonzero()[-1]) + 1
+        labels[i, end - n_target:end] = input_ids[i, end - n_target:end]
+    return labels
 
 
 def patch_outer_forward(model):
@@ -233,10 +259,27 @@ def run_safety_check(wrapper, arm, cfg, outdir, manifest_rows):
     if arm == "A0_zero_shot":
         return report, None
 
-    sample = manifest_rows[:2] if len(manifest_rows) >= 2 else manifest_rows[:1]
+    # Deliberately span the duration range instead of taking the first N rows.
+    # The 2026-09-04 run masked labels with a left-anchored slice that is only
+    # correct under right padding; this check passed anyway because rows [:2]
+    # happened to be within two tokens of each other and so were barely padded.
+    # A batch that is not padded does not exercise the collator.
+    ordered = sorted(manifest_rows, key=lambda r: r.get("duration", 0) or 0)
+    n_probe = min(cfg.get("batch_size", 2), len(ordered))
+    if n_probe >= 2:
+        picks = [round(i * (len(ordered) - 1) / (n_probe - 1)) for i in range(n_probe)]
+        sample = [ordered[i] for i in sorted(set(picks))]
+    else:
+        sample = ordered[:1]
     audios = [load_audio(r["audio"]) for r in sample]
     targets = [r["text"] for r in sample]
     batch = build_batch(wrapper.processor, audios, targets)
+    if len(sample) > 1:
+        lens = batch["attention_mask"].sum(dim=1)
+        if int(lens.max()) == int(lens.min()):
+            raise AssertionError(
+                "safety-check batch has no padding, so it cannot detect a "
+                "misaligned label mask; widen the duration spread")
     device = next(inner.parameters()).device
     batch = {k: (v.to(device) if hasattr(v, "to") else v) for k, v in batch.items()}
     if "input_features" in batch:

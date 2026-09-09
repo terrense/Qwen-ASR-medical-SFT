@@ -47,7 +47,9 @@ def build_batch(processor, audio_arrays, targets, prompt=""):
 
     The prefix is rendered with the chat template, the target plus EOS is
     appended, and every prefix/padding position is masked to -100 so the loss
-    covers only the transcription.
+    covers only the transcription. Label masking is delegated to the trainer's
+    own ``build_labels`` so the safety check cannot drift from what training
+    actually optimises.
     """
     prefix_messages = [
         [{"role": "system", "content": prompt},
@@ -65,14 +67,9 @@ def build_batch(processor, audio_arrays, targets, prompt=""):
     prefix_inputs = processor(text=list(prefix_texts), audio=list(audio_arrays),
                               return_tensors="pt", padding=True, truncation=False)
 
-    prefix_lens = prefix_inputs["attention_mask"].sum(dim=1).tolist()
-    labels = full_inputs["input_ids"].clone()
-    for i, prefix_len in enumerate(prefix_lens):
-        labels[i, :int(prefix_len)] = -100
-    pad_id = processor.tokenizer.pad_token_id
-    if pad_id is not None:
-        labels[labels == pad_id] = -100
-    full_inputs["labels"] = labels
+    from training.train_arm import build_labels
+
+    full_inputs["labels"] = build_labels(full_inputs, prefix_inputs)
     return full_inputs
 
 
