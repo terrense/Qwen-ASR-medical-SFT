@@ -464,18 +464,23 @@ results/                 predictions, metrics, figures, tables
 
 ## Team
 
+The research question — *which component of a speech LLM should carry
+domain adaptation* — and the study design behind it originate with
+**[Shen Xin 沈鑫](https://github.com/terrense)**, who leads the project.
+
 <table>
 <tr>
-<td align="center" width="33%">
+<td align="center" width="25%">
 <a href="https://github.com/terrense">
 <img src="https://github.com/terrense.png?size=180" width="120" alt=""><br>
-<b>Shen Xin 沈鑫</b>
+<b>Shen Xin 沈鑫</b> 🧭
 </a><br>
-<sub><b>Post-training algorithms</b></sub><br>
-<sub>Component adaptation design · gradient isolation</sub><br>
+<sub><b>Project lead</b></sub><br>
+<sub>Research question &amp; study design</sub><br>
+<sub>Post-training algorithms · gradient isolation</sub><br>
 <sub>Training &amp; evaluation stack · statistics</sub>
 </td>
-<td align="center" width="33%">
+<td align="center" width="25%">
 <a href="https://github.com/NaYangyeee">
 <img src="https://github.com/NaYangyeee.png?size=180" width="120" alt=""><br>
 <b>Na Yang 娜样</b>
@@ -484,7 +489,7 @@ results/                 predictions, metrics, figures, tables
 <sub>Supervised fine-tuning · LoRA hyperparameter search</sub><br>
 <sub>Data cleaning &amp; corpus preparation</sub>
 </td>
-<td align="center" width="33%">
+<td align="center" width="25%">
 <a href="https://github.com/FHY163valey">
 <img src="https://github.com/FHY163valey.png?size=180" width="120" alt=""><br>
 <b>Feng Hongyang 冯鸿阳</b>
@@ -493,14 +498,24 @@ results/                 predictions, metrics, figures, tables
 <sub>Corpus cleaning &amp; quality control</sub><br>
 <sub>Training-result evaluation</sub>
 </td>
+<td align="center" width="25%">
+<a href="https://github.com/XYQ666999">
+<img src="https://github.com/XYQ666999.png?size=180" width="120" alt=""><br>
+<b>Xiang Yuequan 项阅权</b>
+</a><br>
+<sub><b>TTS synthesis · LoRA tuning</b></sub><br>
+<sub>Synthetic training audio generation</sub><br>
+<sub>Data cleaning · LoRA hyperparameter tuning</sub>
+</td>
 </tr>
 </table>
 
 | | Contributor | Focus |
 |:--:|---|---|
-| <img src="https://github.com/terrense.png?size=64" width="28"> | [@terrense](https://github.com/terrense) | Post-training algorithms, component adaptation design, training & evaluation stack |
+| <img src="https://github.com/terrense.png?size=64" width="28"> | [@terrense](https://github.com/terrense) | **Project lead.** Research question and study design; post-training algorithms; component adaptation design; training and evaluation stack |
 | <img src="https://github.com/NaYangyeee.png?size=64" width="28"> | [@NaYangyeee](https://github.com/NaYangyeee) | Supervised fine-tuning, LoRA hyperparameter search, data cleaning & preparation |
 | <img src="https://github.com/FHY163valey.png?size=64" width="28"> | [@FHY163valey](https://github.com/FHY163valey) | Corpus cleaning and quality control, evaluation of training results |
+| <img src="https://github.com/XYQ666999.png?size=64" width="28"> | [@XYQ666999](https://github.com/XYQ666999) | TTS synthesis of training audio, data cleaning and organisation, LoRA hyperparameter tuning |
 
 ---
 
