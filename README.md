@@ -316,7 +316,7 @@ environment record is captured per run, not per project.
 <td align="center" width="50%">
 <a href="https://github.com/NaYangyeee">
 <img src="https://github.com/NaYangyeee.png?size=180" width="120" alt=""><br>
-<b>娜祥 · NaYangyeee</b>
+<b>娜样 · NaYangyeee</b>
 </a><br>
 <sub><b>SFT · LoRA 调参 · 数据准备</b></sub><br>
 <sub>监督微调与 LoRA 超参搜索</sub><br>
@@ -330,7 +330,7 @@ environment record is captured per run, not per project.
 | | Contributor | Focus |
 |:--:|---|---|
 | <img src="https://github.com/terrense.png?size=64" width="32"> | [沈鑫 · @terrense](https://github.com/terrense) | Post-training algorithms, component adaptation design, training & evaluation stack |
-| <img src="https://github.com/NaYangyeee.png?size=64" width="32"> | [娜祥 · @NaYangyeee](https://github.com/NaYangyeee) | Supervised fine-tuning, LoRA hyperparameter search, data cleaning & preparation |
+| <img src="https://github.com/NaYangyeee.png?size=64" width="32"> | [娜样 · @NaYangyeee](https://github.com/NaYangyeee) | Supervised fine-tuning, LoRA hyperparameter search, data cleaning & preparation |
 
 ---
 
@@ -351,7 +351,7 @@ Work in progress; please cite the repository until the paper is available.
 @misc{shen2026whereadapt,
   title  = {Where to Adapt {Qwen3-ASR}? Component-wise Parameter-Efficient
             Adaptation for Low-Resource Chinese Hospital-Domain Speech Recognition},
-  author = {Shen, Xin and Na, Xiang},
+  author = {Shen, Xin and Cui, Lina},
   year   = {2026},
   note   = {Work in progress},
   url    = {https://github.com/terrense/Qwen-ASR-medical-SFT}
