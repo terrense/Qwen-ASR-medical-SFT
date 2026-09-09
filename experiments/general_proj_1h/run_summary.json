@@ -1,0 +1,13 @@
+{
+  "experiment": "general_proj_1h",
+  "config": "configs/general_proj_1h.yaml",
+  "arm": "A3_projection_only",
+  "elapsed_seconds": 559.19,
+  "evaluations": {
+    "test_aishell1": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/general_proj_1h/test_aishell1"
+    }
+  },
+  "finished_at": "2026-09-04T04:39:51+0000"
+}

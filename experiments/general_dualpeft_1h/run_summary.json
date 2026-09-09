@@ -1,0 +1,13 @@
+{
+  "experiment": "general_dualpeft_1h",
+  "config": "configs/general_dualpeft_1h.yaml",
+  "arm": "A7_dualpeft",
+  "elapsed_seconds": 708.69,
+  "evaluations": {
+    "test_aishell1": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/general_dualpeft_1h/test_aishell1"
+    }
+  },
+  "finished_at": "2026-09-04T05:21:48+0000"
+}

@@ -1,0 +1,13 @@
+{
+  "experiment": "general_textlora_1h",
+  "config": "configs/general_textlora_1h.yaml",
+  "arm": "A4_text_lora",
+  "elapsed_seconds": 593.35,
+  "evaluations": {
+    "test_aishell1": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/general_textlora_1h/test_aishell1"
+    }
+  },
+  "finished_at": "2026-09-04T04:49:51+0000"
+}

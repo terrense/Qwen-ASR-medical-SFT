@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "tag": "general_textlora_1h/test_aishell1",
+    "model_path": "/data/shenxin/qwen3_asr_hospital/models/Qwen3-ASR-0.6B",
+    "adapter_path": "/data/shenxin/qwen3_asr_hospital/experiments/general_textlora_1h/checkpoints/final",
+    "manifest": "/data/shenxin/qwen3_asr_hospital/data/manifests/test_aishell1.jsonl",
+    "n_utterances": 7176,
+    "limit": null,
+    "dtype": "bfloat16",
+    "device": "cuda:0",
+    "batch_size": 8,
+    "decode_language": "Chinese",
+    "decode_context": "",
+    "normalization": {
+      "nfkc": true,
+      "strip_punctuation": true,
+      "lowercase": true,
+      "remove_whitespace": true,
+      "traditional_to_simplified": false,
+      "normalize_numbers": false,
+      "keep_digit_separators": true,
+      "strip_language_tag": true
+    },
+    "normalization_fingerprint": "c2a1a0f12d",
+    "lexicon_path": "/data/shenxin/qwen3_asr_hospital/data/medical_lexicon.json",
+    "lexicon_n_terms": 417,
+    "decode_seconds": 512.83,
+    "wall_seconds": 512.84,
+    "audio_seconds": 36108.92,
+    "real_time_factor": 0.0142,
+    "peak_vram_gib": 2.175,
+    "timestamp": "2026-09-04T04:49:50+0000"
+  },
+  "overall": {
+    "n_utterances": 7176,
+    "n_empty_reference": 0,
+    "total_edit_distance": 2693,
+    "total_reference_length": 104765,
+    "cer": 0.025705149620579393,
+    "macro_cer": 0.02603011730026849,
+    "substitutions": 2484,
+    "deletions": 116,
+    "insertions": 93
+  },
+  "by_condition": {
+    "public_clean": {
+      "n_utterances": 7176,
+      "n_empty_reference": 0,
+      "total_edit_distance": 2693,
+      "total_reference_length": 104765,
+      "cer": 0.025705149620579393,
+      "macro_cer": 0.02603011730026849,
+      "substitutions": 2484,
+      "deletions": 116,
+      "insertions": 93
+    }
+  },
+  "by_domain_category": {
+    "general": {
+      "n_utterances": 7176,
+      "n_empty_reference": 0,
+      "total_edit_distance": 2693,
+      "total_reference_length": 104765,
+      "cer": 0.025705149620579393,
+      "macro_cer": 0.02603011730026849,
+      "substitutions": 2484,
+      "deletions": 116,
+      "insertions": 93
+    }
+  },
+  "by_source": {
+    "public": {
+      "n_utterances": 7176,
+      "n_empty_reference": 0,
+      "total_edit_distance": 2693,
+      "total_reference_length": 104765,
+      "cer": 0.025705149620579393,
+      "macro_cer": 0.02603011730026849,
+      "substitutions": 2484,
+      "deletions": 116,
+      "insertions": 93
+    }
+  },
+  "medical_terms": {
+    "n_utterances_with_terms": 10,
+    "n_reference_terms": 11,
+    "n_matched_terms": 10,
+    "medical_term_error_rate": 0.09090909090909094,
+    "medical_entity_recall": 0.9090909090909091,
+    "utterance_exact_match": 0.9,
+    "by_term_category": {
+      "symptom": {
+        "n_reference_terms": 5,
+        "n_matched_terms": 5,
+        "term_error_rate": 0.0
+      },
+      "disease": {
+        "n_reference_terms": 3,
+        "n_matched_terms": 2,
+        "term_error_rate": 0.33333333333333337
+      },
+      "department": {
+        "n_reference_terms": 2,
+        "n_matched_terms": 2,
+        "term_error_rate": 0.0
+      },
+      "imaging_exam": {
+        "n_reference_terms": 1,
+        "n_matched_terms": 1,
+        "term_error_rate": 0.0
+      }
+    }
+  }
+}

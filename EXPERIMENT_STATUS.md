@@ -3,7 +3,7 @@
 Single source of truth for what has run, what has not, and what failed.
 No result is recorded here unless it exists as a file on disk.
 
-Last updated: 2026-09-03
+Last updated: 2026-09-09
 
 ---
 
@@ -28,8 +28,8 @@ directory is written to.
 
 | Phase | Description | Status | Evidence |
 |---|---|---|---|
-| 0 | Environment audit + repo scaffold | **partial** | `logs/audit_authoring_machine/environment.{txt,yaml,json}` for the authoring machine. Remote audit blocked on `env_asr` install. |
-| 1 | Model module inventory | **code ready, not run** | `scripts/inspect_model.py`, `src/models/components.py` |
+| 0 | Environment audit + repo scaffold | **done** | `env_asr` built and audited; per-run `environment.json` recorded under each `experiments/<run>/` |
+| 1 | Model module inventory | **done** | `scripts/inspect_model.py`, `src/models/components.py`; counts verified against the installed package |
 | 2 | Manifest standard | **done** | `src/data/manifest.py` (schema, validator, official-SFT projection) |
 | 3 | Text corpus generation | **done** | `data/scripts/all_scripts.jsonl` — 17,986 utterances, 71 families |
 | 4 | Splitting (stage A: scripts) | **done** | `data/manifests/splits/` — family-disjoint |
@@ -37,11 +37,11 @@ directory is written to.
 | 5 | TTS generation | **code ready, not run** | `scripts/generate_tts.py`, `src/data/speakers.py` (32 identities) |
 | 6 | Audio QC | **done (code + verified)** | `src/data/audio_qc.py` |
 | 7 | Acoustic augmentation | **done (code + verified end to end)** | `src/augmentation/acoustic.py`, `scripts/augment_corpus.py` |
-| 8 | Zero-shot baseline | **pipeline verified; real baseline blocked on audio** | `experiments/pipeline_smoke/` |
+| 8 | Zero-shot baseline | **done (general domain)** | 0.6B 2.10% / 1.7B 1.54% on AISHELL-1 test, 7,176 utterances. Hospital-domain baseline still blocked on audio |
 | 9 | Metrics + medical lexicon | **done** | `src/evaluation/metrics.py`, `data/medical_lexicon.json` (417 terms) |
 | 10 | Training configurations | **code ready** | `src/models/components.py` — arms A0–A7 |
 | 11 | Training safety check | **DONE — 7/7 arms pass** | `experiments/safety/<arm>/trainable_parameters.{txt,json}` |
-| 12–15 | Experiment matrix | **configs written, not run** | `configs/MATRIX.md` |
+| 12–15 | Experiment matrix | **first sweep run and INVALIDATED** | 7/7 arms executed at the 1 h general budget on 2026-09-04, then discarded: failure #15 below. Rerun pending |
 | 16 | Reproducibility scaffolding | **done** | 26 configs from `scripts/make_configs.py` |
 | 17 | Random seeds | **planned** | seeds 123/2026 configs exist for the 1 h Text-LoRA and DualPEFT comparisons |
 | 18 | Statistical analysis | **done (code)** | `metrics.paired_bootstrap`, 10k replicates, pairing asserted |
@@ -151,6 +151,38 @@ handled separately.
 
 Storage note: A1 and A3 write a full 1.5 G model per checkpoint, the PEFT arms
 write an 18 M adapter.
+
+### 2026-09-04 seven-arm sweep at the 1 h general budget — RUN, THEN INVALIDATED
+
+All seven arms trained and evaluated end to end (810 AISHELL-1 utterances /
+1.00 h, 3 epochs, batch 8, seed 42) and were scored on the full AISHELL-1 test
+set. **Do not cite these numbers.** They are recorded because the failure they
+exposed is the point, not the ranking.
+
+| Arm | CER | vs zero-shot 2.10% | train_loss | Trainable |
+|---|---|---|---|---|
+| A5 audio-LoRA + proj | 2.23% | +0.13 | 6.261 | 0.483% |
+| A6 text-LoRA + proj | 2.49% | +0.39 | 5.165 | 0.802% |
+| A4 text-LoRA | 2.57% | +0.47 | 5.298 | 0.583% |
+| A7 DualPEFT | 2.60% | +0.50 | 5.142 | 1.061% |
+| A1 full SFT | 3.63% | +1.53 | 4.727 | 100% |
+| A3 projection only | 6.11% | +4.01 | 12.671 | 0.220% |
+| A2 audio-LoRA | 6.66% | +4.56 | 9.758 | 0.263% |
+
+Two things were wrong at once and they have the same cause (failure #15):
+
+1. **Every arm is worse than zero-shot**, on the same corpus it was trained on.
+2. **The losses are at the scale of an untrained model.** `ln(151936) = 11.93`
+   is the cross-entropy of a uniform guess over the vocabulary; A3 converged to
+   12.67 and A2 to 9.76. A model that scores 2.10% CER zero-shot cannot have a
+   training loss of 12 on in-distribution data.
+
+Read against the fixed objective, the surviving signal is *capacity to
+compensate for a corrupted target*, which is the exact confound this study
+exists to avoid: A1 (100% of parameters) drove the loss to 1.34 by memorising
+the corruption, while A3 (0.22%) could not move it below 10.5 and was scored as
+the second-worst arm. A3 is the cheapest and most interesting arm in the
+study, so this failure mode attacks the thesis directly.
 
 ### Phase 8/14 — general-domain zero-shot baseline (FIRST REAL RESULT)
 
@@ -390,13 +422,40 @@ test pins both the fixed behaviour and the old corruption when the flag is off.
 | 13 | A1 and A3 could not save a checkpoint | `ValueError: GenerationConfig is invalid` at save time. The 5 PEFT arms were fine | Qwen3-ASR ships `generation_config` with `temperature=1e-06` while `do_sample=False`. transformers only *warns* at load but validates strictly on `save_pretrained`. The PEFT arms escaped it because they serialize an adapter instead of a model | `sanitize_generation_config()` clears the sampling-only flags before training (so intermediate `save_steps` checkpoints are safe too) and restores them afterwards. The flags are already ignored during greedy decoding, so nothing changes behaviourally | found and fixed before any real run |
 | 14 | A1 and A3 could not be evaluated | `Can't find 'adapter_config.json'` | `run_experiment.py` passed the checkpoint as `--adapter_path` for every non-A0 arm, but the two non-PEFT arms write a standalone model directory | `classify_checkpoint()` now detects adapter vs full model and routes accordingly; `make_checkpoint_inferable()` copies the tokenizer/processor sidecar files a multimodal checkpoint needs (mirrors the official script's `copy_required_hf_files_for_qwen_asr`) | found and fixed before any real run |
 
+| 15 | **Label mask aligned to the wrong end of the sequence (mine)** | All seven arms of the 2026-09-04 sweep trained against a corrupted objective and every one scored worse than zero-shot. Losses converged between 5.1 and 12.7, against `ln(151936) = 11.93` for a uniform guess | `Qwen3ASRProcessorKwargs._defaults["text_kwargs"]` sets `padding_side="left"`, which overrides the tokenizer's own `"right"`. The collator masked with `labels[i, :prefix_len] = -100` — a **left-anchored** slice, correct only under right padding. Under left padding that slice covers padding instead of the prefix, so the whole real sequence stayed supervised: chat scaffolding, `<|im_start|>system`, and every one of the 26–54 `<|audio_pad|>` tokens. The model was being trained to *predict the audio placeholders* | `build_labels()` counts back from the last real token (`end - n_target : end`), which is correct under either padding side, and is now the single implementation shared by the trainer and the safety check | **yes — all 7 arms** |
+
+Failure 15 is the one worth remembering, because of *why* the safety check
+missed it. The check built its batch from `manifest_rows[:2]`, and those two
+rows happened to be 120 and 118 tokens long. Two tokens of padding is not
+enough misalignment to show up, so the check reported a healthy
+`initial_loss = 3.8626` — the same value on every arm, every time — while
+training at batch size 8 was running at 16.4. **A batch with no padding cannot
+test a collator.** The safety check now selects rows spanning the duration
+range and refuses to run if the resulting batch is unpadded.
+
+Measured on the untrained 0.6B, same rows, before and after:
+
+| Batch | Padding | Loss before | Loss after |
+|---|---|---|---|
+| n=1, each of 8 rows | none | 4.330 (mean) | 4.330 (mean) |
+| n=2, rows 0–1 (120 / 118 tokens) | 2 tokens | 3.863 | 3.863 |
+| n=8, rows 0–7 (120 … 60 tokens) | up to 60 tokens | **16.434** | **4.077** |
+
+After the fix the supervised span decodes to exactly the transcript plus
+`<|im_end|>` on all 8 rows, and the batched loss agrees with the per-row mean.
+
 Bugs 13 and 14 would each have blocked **2 of the 7 arms entirely**, including
 A3 projection-only — the cheapest and most interesting arm in the study. Both
 were only visible by actually running training, which is why the pipeline was
 validated on public data rather than waiting for the hospital corpus.
 
-Nothing has been trained yet on hospital data, so no experimental result is
-affected by any of the above.
+Nothing has been trained yet on hospital data, so no hospital-domain result is
+affected by any of the above. Failure 15 did invalidate a real sweep — the
+2026-09-04 general-budget run — and that sweep must be repeated before any of
+its numbers enter the paper. The same three failures (13, 14, 15) are the
+argument for validating the pipeline on public data instead of waiting for the
+corpus: all three were invisible until training actually ran, and failure 15
+was invisible until it ran at a batch size greater than one.
 
 The Phase 11 parameter accounting was independently correct throughout, and the
 arithmetic checks out by hand: A2 = 72 modules × (16×896 + 896×16) = 2,064,384;
@@ -440,14 +499,27 @@ sharing was never an option.
 | `env_asr` | training + evaluation | torch 2.9.1, transformers 4.57.6, qwen-asr 0.0.6, peft, gradio 5.50.0 |
 | `env_tts` | data generation only | transformers 4.57.3, qwen-tts |
 
-`env_asr` install **in progress**. `env_tts` not yet created.
+`env_asr` **built and in use** — torch 2.9.1+cu128, transformers 4.57.6,
+qwen-asr 0.0.6, peft 0.20.0, python 3.12.3; flash-attn and deepspeed are not
+installed. Both live under the project root as venvs, not conda environments.
+`env_tts` not yet created (blocked on the TTS work, which is owned separately).
 
 ---
 
 ## Next actions, in order
 
-1. Finish `env_asr`; run `scripts/audit_environment.py` on the H20 → remote `environment.txt`
-2. Run `scripts/inspect_model.py` → `results/model_module_inventory.csv` (Phase 1)
-3. Run `tests/test_trainable_parameters.py --arm all` (Phase 11)
-4. Build `env_tts`, download Qwen3-TTS VoiceDesign + CustomVoice, compare 20 samples (Phase 5 decision)
-5. Render anchors → 20-sample TTS smoke test → first real manifest → tiny zero-shot eval (Phase 8)
+1. **Rerun the seven-arm 1 h general sweep** against the fixed objective
+   (failure #15). ~70 minutes of GPU total. Until this lands there is no valid
+   adaptation result at any budget.
+2. Confirm on the rerun that the arms now beat, or at least match, the 2.10%
+   zero-shot baseline. If they still do not, the next suspect is the
+   learning-rate/epoch schedule, not the collator.
+3. Re-run `tests/test_trainable_parameters.py --arm all` under the widened
+   safety check, and record the new `initial_loss` per arm — it should no
+   longer be identical across arms with different padding.
+4. Extend the sweep to the 5 h / 10 h / 20 h budgets and to 1.7B once the 1 h
+   rerun is sane (Phase 12–15).
+5. Build `env_tts`, download Qwen3-TTS VoiceDesign + CustomVoice, compare 20
+   samples (Phase 5 decision) — gated on the TTS work owned separately.
+6. Render anchors → 20-sample TTS smoke test → first hospital manifest → the
+   hospital-domain zero-shot baseline (Phase 8).

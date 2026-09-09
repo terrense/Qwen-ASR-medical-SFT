@@ -19,6 +19,11 @@ data/synthetic/**/*.wav
 experiments/*/checkpoints/
 experiments/**/checkpoints/
 
+# Full-test-set predictions are ~5.5 MB per run and every sweep adds seven of
+# them. metrics.json carries the numbers; the predictions stay on the H20 for
+# error analysis. The small pipeline_eval_* sets remain tracked.
+experiments/**/test_*/predictions.jsonl
+
 # Raw logs are noisy; the curated record lives in EXPERIMENT_STATUS.md
 logs/*.log
 nohup.out

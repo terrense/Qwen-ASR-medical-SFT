@@ -1,7 +1,7 @@
 ==============================================================================
 QWEN3-ASR HOSPITAL DOMAIN ADAPTATION - ENVIRONMENT RECORD
 ==============================================================================
-recorded_at       : 2026-09-04T06:22:36.726770+00:00
+recorded_at       : 2026-09-04T04:17:48.656951+00:00
 hostname          : custom-sdep-azxnmv-default-0-model-7bf7d54888-ndrxl
 platform          : Linux-4.18.0-372.32.1.90.po1.x86_64-x86_64-with-glibc2.39 (x86_64)
 python            : 3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]
