@@ -521,7 +521,7 @@ Work in progress. Please cite the repository until the paper is available.
 @misc{shen2026whereadapt,
   title  = {Where to Adapt {Qwen3-ASR}? Component-wise Parameter-Efficient
             Adaptation for Low-Resource Chinese Hospital-Domain Speech Recognition},
-  author = {Shen, Xin and Cui, Lina and Feng, Hongyang},
+  author = {Shen, Xin and Cui, Lina and Feng, Hongyang and Xiang, Yuequan},
   year   = {2026},
   note   = {Work in progress},
   url    = {https://github.com/terrense/Qwen-ASR-medical-SFT}
