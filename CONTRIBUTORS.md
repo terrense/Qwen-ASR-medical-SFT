@@ -4,6 +4,7 @@
 |---|---|---|
 | Shen Xin 沈鑫 | [@terrense](https://github.com/terrense) | Post-training algorithms; component adaptation design and gradient-isolation verification; training and evaluation stack; statistical analysis |
 | Na Yang 娜样 | [@NaYangyeee](https://github.com/NaYangyeee) | Supervised fine-tuning; LoRA hyperparameter search; data cleaning and corpus preparation |
+| Feng Hongyang 冯鸿阳 | [@FHY163valey](https://github.com/FHY163valey) | Corpus cleaning and quality control; evaluation of training results |
 
 Author names as they appear in the citation are given in
 [README.md](README.md#citation).

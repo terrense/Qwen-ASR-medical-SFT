@@ -466,7 +466,7 @@ results/                 predictions, metrics, figures, tables
 
 <table>
 <tr>
-<td align="center" width="50%">
+<td align="center" width="33%">
 <a href="https://github.com/terrense">
 <img src="https://github.com/terrense.png?size=180" width="120" alt=""><br>
 <b>Shen Xin 沈鑫</b>
@@ -475,14 +475,23 @@ results/                 predictions, metrics, figures, tables
 <sub>Component adaptation design · gradient isolation</sub><br>
 <sub>Training &amp; evaluation stack · statistics</sub>
 </td>
-<td align="center" width="50%">
+<td align="center" width="33%">
 <a href="https://github.com/NaYangyeee">
 <img src="https://github.com/NaYangyeee.png?size=180" width="120" alt=""><br>
 <b>Na Yang 娜样</b>
 </a><br>
-<sub><b>SFT · LoRA tuning · data</b></sub><br>
+<sub><b>SFT · LoRA tuning</b></sub><br>
 <sub>Supervised fine-tuning · LoRA hyperparameter search</sub><br>
 <sub>Data cleaning &amp; corpus preparation</sub>
+</td>
+<td align="center" width="33%">
+<a href="https://github.com/FHY163valey">
+<img src="https://github.com/FHY163valey.png?size=180" width="120" alt=""><br>
+<b>Feng Hongyang 冯鸿阳</b>
+</a><br>
+<sub><b>Data cleaning · evaluation</b></sub><br>
+<sub>Corpus cleaning &amp; quality control</sub><br>
+<sub>Training-result evaluation</sub>
 </td>
 </tr>
 </table>
@@ -491,6 +500,7 @@ results/                 predictions, metrics, figures, tables
 |:--:|---|---|
 | <img src="https://github.com/terrense.png?size=64" width="28"> | [@terrense](https://github.com/terrense) | Post-training algorithms, component adaptation design, training & evaluation stack |
 | <img src="https://github.com/NaYangyeee.png?size=64" width="28"> | [@NaYangyeee](https://github.com/NaYangyeee) | Supervised fine-tuning, LoRA hyperparameter search, data cleaning & preparation |
+| <img src="https://github.com/FHY163valey.png?size=64" width="28"> | [@FHY163valey](https://github.com/FHY163valey) | Corpus cleaning and quality control, evaluation of training results |
 
 ---
 
@@ -511,7 +521,7 @@ Work in progress. Please cite the repository until the paper is available.
 @misc{shen2026whereadapt,
   title  = {Where to Adapt {Qwen3-ASR}? Component-wise Parameter-Efficient
             Adaptation for Low-Resource Chinese Hospital-Domain Speech Recognition},
-  author = {Shen, Xin and Cui, Lina},
+  author = {Shen, Xin and Cui, Lina and Feng, Hongyang},
   year   = {2026},
   note   = {Work in progress},
   url    = {https://github.com/terrense/Qwen-ASR-medical-SFT}
