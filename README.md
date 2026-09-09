@@ -26,6 +26,7 @@
 
 ## 📰 News
 
+- **[2026-09-09]** Sweep re-run against the fixed objective. `A4` text-LoRA reaches **2.03%**, beating both zero-shot (p=0.035) and full SFT (p=0.0002) with 0.583% of the parameters. `A3` projection-only is genuinely last (p<0.0001). [Results ↓](#42-adaptation-sweep-1-h-general-domain-budget)
 - **[2026-09-09]** Failure #15 found and fixed: the label mask was anchored to the wrong end of the sequence under left padding. The 2026-09-04 sweep is **retracted**. Batched loss 16.43 → 4.08. [Postmortem ↓](#5-postmortem-the-bug-that-cost-a-full-sweep)
 - **[2026-09-04]** All 7 arms execute end to end on a 1 h general-domain budget. Numbers later retracted; two blocking bugs (#13, #14) found and fixed in the process.
 - **[2026-09-03]** Zero-shot baselines final on AISHELL-1 test, full 7,176 utterances: **0.6B 2.10%**, **1.7B 1.54%**, paired bootstrap +0.56 pp, 95% CI [+0.48, +0.65].
@@ -146,21 +147,56 @@ same order, identical reference lengths, or the call raises.
 
 These do not go through the training collator and are **unaffected** by failure #15.
 
-### 4.2 Adaptation sweep — ⚠️ retracted, rerunning
+### 4.2 Adaptation sweep, 1 h general-domain budget
 
-| Arm | CER | vs zero-shot | train_loss |
-|---|--:|--:|--:|
-| `A5` audio-LoRA + proj | 2.23% | +0.13 | 6.261 |
-| `A6` text-LoRA + proj | 2.49% | +0.39 | 5.165 |
-| `A4` text-LoRA | 2.57% | +0.47 | 5.298 |
-| `A7` DualPEFT | 2.60% | +0.50 | 5.142 |
-| `A1` full SFT | 3.63% | +1.53 | 4.727 |
-| `A3` projection only | 6.11% | +4.01 | 12.671 |
-| `A2` audio-LoRA | 6.66% | +4.56 | 9.758 |
+810 AISHELL-1 utterances (1.00 h), 3 epochs, batch 8, seed 42, evaluated on the
+full AISHELL-1 test set. Configs are byte-identical to the retracted run apart
+from the output path, so the collator fix (§5) is the only variable.
 
-**Do not cite these.** Every arm is worse than zero-shot on the corpus it trained
-on, and `ln(151936) = 11.93` is the cross-entropy of a uniform guess over the
-vocabulary — `A3` converged *above* it. Cause and fix below.
+| Arm | CER | Δ vs zero-shot | train_loss | Trainable | Train |
+|---|--:|--:|--:|--:|--:|
+| `A4` text-LoRA | **2.03%** | −0.069 | 0.250 | 0.583% | 54 s |
+| `A7` DualPEFT | 2.05% | −0.047 | 0.182 | 1.061% | 115 s |
+| `A6` text-LoRA + proj | 2.07% | −0.031 | 0.184 | 0.802% | 55 s |
+| `A5` audio-LoRA + proj | 2.08% | −0.020 | 0.232 | 0.483% | 102 s |
+| `A0` zero-shot | 2.10% | — | — | — | — |
+| `A1` full SFT | 2.17% | +0.071 | 0.305 | 100% | 135 s |
+| `A2` audio-LoRA | 2.20% | +0.100 | 0.573 | 0.263% | 99 s |
+| `A3` projection only | 2.70% | +0.601 | 0.473 | 0.220% | 44 s |
+
+Losses now converge to 0.18–0.57, against 4.7–12.7 before the fix. Peak VRAM
+5.9–8.7 GiB; the whole sweep is 70 minutes wall-clock including evaluation.
+
+**Significance.** Paired bootstrap over utterances, 10,000 replicates, seed 42
+(`results/metrics/paired_bootstrap_general_1h_v2.json`). Only these comparisons
+were tested:
+
+| Comparison | Δ (pp) | 95% CI | p | |
+|---|--:|---|--:|:--|
+| `A3` − `A0` | +0.601 | [+0.513, +0.691] | <0.0001 | ✅ significant |
+| `A2` − `A3` | −0.501 | [−0.593, −0.408] | <0.0001 | ✅ significant |
+| `A4` − `A1` | −0.139 | [−0.211, −0.068] | 0.0002 | ✅ significant |
+| `A4` − `A0` | −0.069 | [−0.132, −0.005] | 0.035 | ✅ marginal |
+| `A7` − `A0` | −0.047 | [−0.104, +0.010] | 0.107 | ✗ |
+| `A1` − `A0` | +0.071 | [−0.006, +0.148] | 0.071 | ✗ |
+| `A4` − `A5` | −0.049 | [−0.118, +0.022] | 0.176 | ✗ |
+| `A4` − `A7` | −0.022 | [−0.086, +0.043] | 0.521 | ✗ |
+
+Three tests clear significance, one is marginal, the remaining four are null:
+
+- **`A3` projection-only is genuinely last**, by a wide and unambiguous margin.
+- **`A4` text-LoRA genuinely beats `A1` full SFT** — 0.583% of the parameters
+  outperforms updating all of them, and full SFT does not separate from
+  zero-shot at all.
+- `A4` clears zero-shot, but the CI lower bound is −0.005 pp. Treat as marginal.
+- **`A4`, `A7`, `A6` and `A5` are mutually indistinguishable.** Do not rank them.
+
+> **This is not the adaptation experiment.** Training on AISHELL and testing on
+> AISHELL is in-distribution refinement of a model that is already strong there —
+> there is no domain shift for a projection head to correct, so `A3` finishing
+> last is uninformative about the hospital-domain hypothesis. These runs exist to
+> show the pipeline produces analyzable results. The component question is
+> decided by §6's pending corpus, not here.
 
 ---
 
@@ -240,14 +276,19 @@ selects rows spanning the duration range and refuses to run on an unpadded batch
 
 ### 5.5 Why the numbers had to be thrown out, not merely flagged
 
-With a corrupted target, the ranking measures *capacity to memorise the
-corruption*, not fitness for adaptation:
+With a corrupted target, the ranking partly measures *capacity to memorise the
+corruption* rather than fitness for adaptation:
 
 - `A1`, 782 M trainable → drove loss to 1.34 by memorising it
-- `A3`, 1.7 M trainable → stuck at 10.5, scored second-worst
+- `A3`, 1.7 M trainable → could not, and stalled at 10.5
 
-`A3` is the arm the entire study is built to evaluate. The bug did not make the
-results ugly; it inverted the one comparison that matters.
+The rerun quantifies the distortion. `A5` fell from first place to fourth, `A4`
+rose from third to first, and `A3`'s deficit against zero-shot shrank from
+**+4.01 pp to +0.60 pp** — the bug overstated it by 6.7×.
+
+`A3` did stay last, so the bug did not manufacture that result. It inflated it
+beyond recognition and scrambled everything above it, which is why the table had
+to be discarded rather than annotated.
 
 ---
 

@@ -1,0 +1,106 @@
+==========================================================================
+EXPERIMENT general_audiolora_1h_v2
+config     : configs/general_audiolora_1h_v2.yaml
+arm        : A2_audio_lora
+model      : models/Qwen3-ASR-0.6B
+budget     : 1h
+seed       : 42
+started    : 2026-09-09T03:44:18+0000
+==========================================================================
+train manifest: /data/shenxin/qwen3_asr_hospital/data/manifests/general/train_1h.jsonl (810 utterances, 1.000 h)
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+==========================================================================
+ADAPTATION ARM: A2_audio_lora
+==========================================================================
+strategy            : LoRA on audio encoder attention
+audio root          : thinker.audio_tower
+text root           : thinker.model
+projection paths    : thinker.audio_tower.proj1, thinker.audio_tower.proj2
+audio LoRA regex    : ^thinker\.audio_tower\.layers\.\d+\.self_attn\.(k_proj|out_proj|q_proj|v_proj)$
+  matched modules   : 72
+text LoRA regex     : ^thinker\.model\.layers\.\d+\.self_attn\.(k_proj|o_proj|q_proj|v_proj)$
+  matched modules   : 112
+PEFT applied        : True
+LoRA r/alpha/drop   : 16 / 32 / 0.05
+--------------------------------------------------------------------------
+total parameters    : 784,490,496
+trainable parameters: 2,064,384
+trainable percentage: 0.263150%
+trainable tensors   : 144
+--------------------------------------------------------------------------
+trainable parameters by component:
+  AUDIO_ENCODER           2,064,384 params in  144 tensors
+  AUDIO_PROJECTION                -
+  TEXT_DECODER                    -
+  OTHER                           -
+--------------------------------------------------------------------------
+trainable parameter names:
+  base_model.model.thinker.audio_tower.layers.0.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.0.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.1.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.2.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.3.self_attn.out_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.k_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.k_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.v_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.v_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.q_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.q_proj.lora_B.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.out_proj.lora_A.default.weight
+  base_model.model.thinker.audio_tower.layers.4.self_attn.out_proj.lora_B.default.weight
+  ... 104 more
+
+safety check passed: initial loss 4.7618, gradients on 72 parameters
+sanitized generation_config for saving: cleared temperature, top_k, top_p
+Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+The model is already on multiple devices. Skipping the move to device specified in `args`.
+  0%|          | 0/153 [00:00<?, ?it/s]  1%|          | 1/153 [00:01<03:12,  1.27s/it]  1%|1         | 2/153 [00:02<02:30,  1.00it/s]  2%|1         | 3/153 [00:02<02:09,  1.16it/s]  3%|2         | 4/153 [00:03<01:58,  1.25it/s]  3%|3         | 5/153 [00:04<01:51,  1.32it/s]  4%|3         | 6/153 [00:04<01:50,  1.33it/s]  5%|4         | 7/153 [00:05<01:47,  1.36it/s]  5%|5         | 8/153 [00:06<01:44,  1.38it/s]  6%|5         | 9/153 [00:06<01:41,  1.42it/s]  7%|6         | 10/153 [00:07<01:38,  1.45it/s]  7%|7         | 11/153 [00:08<01:37,  1.46it/s]  8%|7         | 12/153 [00:08<01:35,  1.48it/s]  8%|8         | 13/153 [00:09<01:33,  1.50it/s]  9%|9         | 14/153 [00:10<01:32,  1.50it/s] 10%|9         | 15/153 [00:10<01:31,  1.51it/s] 10%|#         | 16/153 [00:11<01:29,  1.54it/s] 11%|#1        | 17/153 [00:12<01:28,  1.54it/s] 12%|#1        | 18/153 [00:12<01:27,  1.55it/s] 12%|#2        | 19/153 [00:13<01:26,  1.56it/s] 13%|#3        | 20/153 [00:14<01:24,  1.57it/s]                                                {'loss': 3.1183, 'grad_norm': 6.008347034454346, 'learning_rate': 9.780833673696254e-05, 'epoch': 0.39}
+ 13%|#3        | 20/153 [00:14<01:24,  1.57it/s] 14%|#3        | 21/153 [00:14<01:24,  1.56it/s] 14%|#4        | 22/153 [00:15<01:23,  1.56it/s] 15%|#5        | 23/153 [00:16<01:23,  1.56it/s] 16%|#5        | 24/153 [00:16<01:23,  1.55it/s] 16%|#6        | 25/153 [00:17<01:22,  1.56it/s] 17%|#6        | 26/153 [00:17<01:20,  1.57it/s] 18%|#7        | 27/153 [00:18<01:21,  1.54it/s] 18%|#8        | 28/153 [00:19<01:20,  1.55it/s] 19%|#8        | 29/153 [00:19<01:19,  1.56it/s] 20%|#9        | 30/153 [00:20<01:18,  1.57it/s] 20%|##        | 31/153 [00:21<01:17,  1.57it/s] 21%|##        | 32/153 [00:21<01:17,  1.57it/s] 22%|##1       | 33/153 [00:22<01:16,  1.58it/s] 22%|##2       | 34/153 [00:23<01:15,  1.57it/s] 23%|##2       | 35/153 [00:23<01:14,  1.58it/s] 24%|##3       | 36/153 [00:24<01:13,  1.58it/s] 24%|##4       | 37/153 [00:24<01:13,  1.57it/s] 25%|##4       | 38/153 [00:25<01:13,  1.56it/s] 25%|##5       | 39/153 [00:26<01:13,  1.56it/s] 26%|##6       | 40/153 [00:26<01:11,  1.57it/s]                                                {'loss': 0.6374, 'grad_norm': 0.7778608202934265, 'learning_rate': 8.753361526263621e-05, 'epoch': 0.78}
+ 26%|##6       | 40/153 [00:26<01:11,  1.57it/s] 27%|##6       | 41/153 [00:27<01:11,  1.56it/s] 27%|##7       | 42/153 [00:28<01:10,  1.57it/s] 28%|##8       | 43/153 [00:28<01:09,  1.57it/s] 29%|##8       | 44/153 [00:29<01:09,  1.57it/s] 29%|##9       | 45/153 [00:30<01:08,  1.57it/s] 30%|###       | 46/153 [00:30<01:07,  1.57it/s] 31%|###       | 47/153 [00:31<01:07,  1.58it/s] 31%|###1      | 48/153 [00:31<01:06,  1.58it/s] 32%|###2      | 49/153 [00:32<01:05,  1.59it/s] 33%|###2      | 50/153 [00:33<01:04,  1.59it/s] 33%|###3      | 51/153 [00:33<01:01,  1.67it/s] 34%|###3      | 52/153 [00:34<01:09,  1.46it/s] 35%|###4      | 53/153 [00:35<01:06,  1.50it/s] 35%|###5      | 54/153 [00:35<01:06,  1.50it/s] 36%|###5      | 55/153 [00:36<01:04,  1.52it/s] 37%|###6      | 56/153 [00:37<01:02,  1.54it/s] 37%|###7      | 57/153 [00:37<01:03,  1.50it/s] 38%|###7      | 58/153 [00:38<01:02,  1.52it/s] 39%|###8      | 59/153 [00:39<01:00,  1.54it/s] 39%|###9      | 60/153 [00:39<00:59,  1.56it/s]                                                {'loss': 0.1317, 'grad_norm': 3.8848013877868652, 'learning_rate': 7.059506241219965e-05, 'epoch': 1.18}
+ 39%|###9      | 60/153 [00:39<00:59,  1.56it/s] 40%|###9      | 61/153 [00:40<00:58,  1.56it/s] 41%|####      | 62/153 [00:41<00:57,  1.57it/s] 41%|####1     | 63/153 [00:41<00:57,  1.58it/s] 42%|####1     | 64/153 [00:42<00:56,  1.58it/s] 42%|####2     | 65/153 [00:42<00:55,  1.58it/s] 43%|####3     | 66/153 [00:43<00:55,  1.58it/s] 44%|####3     | 67/153 [00:44<00:54,  1.58it/s] 44%|####4     | 68/153 [00:44<00:54,  1.57it/s] 45%|####5     | 69/153 [00:45<00:53,  1.58it/s] 46%|####5     | 70/153 [00:46<00:52,  1.58it/s] 46%|####6     | 71/153 [00:46<00:52,  1.57it/s] 47%|####7     | 72/153 [00:47<00:51,  1.58it/s] 48%|####7     | 73/153 [00:47<00:50,  1.58it/s] 48%|####8     | 74/153 [00:48<00:49,  1.58it/s] 49%|####9     | 75/153 [00:49<00:49,  1.58it/s] 50%|####9     | 76/153 [00:49<00:48,  1.59it/s] 50%|#####     | 77/153 [00:50<00:48,  1.58it/s] 51%|#####     | 78/153 [00:51<00:47,  1.58it/s] 52%|#####1    | 79/153 [00:51<00:46,  1.59it/s] 52%|#####2    | 80/153 [00:52<00:45,  1.59it/s]                                                {'loss': 0.1213, 'grad_norm': 1.0947147607803345, 'learning_rate': 5e-05, 'epoch': 1.57}
+ 52%|#####2    | 80/153 [00:52<00:45,  1.59it/s] 53%|#####2    | 81/153 [00:53<00:45,  1.58it/s] 54%|#####3    | 82/153 [00:53<00:44,  1.58it/s] 54%|#####4    | 83/153 [00:54<00:44,  1.59it/s] 55%|#####4    | 84/153 [00:54<00:43,  1.58it/s] 56%|#####5    | 85/153 [00:55<00:42,  1.58it/s] 56%|#####6    | 86/153 [00:56<00:42,  1.59it/s] 57%|#####6    | 87/153 [00:56<00:41,  1.59it/s] 58%|#####7    | 88/153 [00:57<00:41,  1.58it/s] 58%|#####8    | 89/153 [00:58<00:40,  1.58it/s] 59%|#####8    | 90/153 [00:58<00:39,  1.58it/s] 59%|#####9    | 91/153 [00:59<00:39,  1.59it/s] 60%|######    | 92/153 [00:59<00:38,  1.59it/s] 61%|######    | 93/153 [01:00<00:37,  1.59it/s] 61%|######1   | 94/153 [01:01<00:37,  1.59it/s] 62%|######2   | 95/153 [01:01<00:36,  1.58it/s] 63%|######2   | 96/153 [01:02<00:36,  1.58it/s] 63%|######3   | 97/153 [01:03<00:35,  1.58it/s] 64%|######4   | 98/153 [01:03<00:34,  1.59it/s] 65%|######4   | 99/153 [01:04<00:33,  1.59it/s] 65%|######5   | 100/153 [01:05<00:33,  1.59it/s]                                                 {'loss': 0.1073, 'grad_norm': 1.8999687433242798, 'learning_rate': 2.9404937587800375e-05, 'epoch': 1.96}
+ 65%|######5   | 100/153 [01:05<00:33,  1.59it/s] 66%|######6   | 101/153 [01:05<00:32,  1.59it/s] 67%|######6   | 102/153 [01:06<00:30,  1.69it/s] 67%|######7   | 103/153 [01:06<00:33,  1.51it/s] 68%|######7   | 104/153 [01:07<00:31,  1.53it/s] 69%|######8   | 105/153 [01:08<00:31,  1.55it/s] 69%|######9   | 106/153 [01:08<00:30,  1.56it/s] 70%|######9   | 107/153 [01:09<00:29,  1.58it/s] 71%|#######   | 108/153 [01:10<00:28,  1.58it/s] 71%|#######1  | 109/153 [01:10<00:27,  1.58it/s] 72%|#######1  | 110/153 [01:11<00:27,  1.58it/s] 73%|#######2  | 111/153 [01:11<00:26,  1.59it/s] 73%|#######3  | 112/153 [01:12<00:25,  1.59it/s] 74%|#######3  | 113/153 [01:13<00:25,  1.59it/s] 75%|#######4  | 114/153 [01:13<00:24,  1.59it/s] 75%|#######5  | 115/153 [01:14<00:23,  1.59it/s] 76%|#######5  | 116/153 [01:15<00:23,  1.59it/s] 76%|#######6  | 117/153 [01:15<00:22,  1.59it/s] 77%|#######7  | 118/153 [01:16<00:21,  1.60it/s] 78%|#######7  | 119/153 [01:17<00:21,  1.60it/s] 78%|#######8  | 120/153 [01:17<00:20,  1.59it/s]                                                 {'loss': 0.1159, 'grad_norm': 0.6004427075386047, 'learning_rate': 1.246638473736378e-05, 'epoch': 2.35}
+ 78%|#######8  | 120/153 [01:17<00:20,  1.59it/s] 79%|#######9  | 121/153 [01:18<00:20,  1.59it/s] 80%|#######9  | 122/153 [01:18<00:19,  1.59it/s] 80%|########  | 123/153 [01:19<00:18,  1.59it/s] 81%|########1 | 124/153 [01:20<00:18,  1.59it/s] 82%|########1 | 125/153 [01:20<00:17,  1.58it/s] 82%|########2 | 126/153 [01:21<00:17,  1.58it/s] 83%|########3 | 127/153 [01:22<00:16,  1.58it/s] 84%|########3 | 128/153 [01:22<00:15,  1.58it/s] 84%|########4 | 129/153 [01:23<00:15,  1.59it/s] 85%|########4 | 130/153 [01:23<00:14,  1.58it/s] 86%|########5 | 131/153 [01:24<00:13,  1.59it/s] 86%|########6 | 132/153 [01:25<00:13,  1.59it/s] 87%|########6 | 133/153 [01:25<00:12,  1.59it/s] 88%|########7 | 134/153 [01:26<00:11,  1.59it/s] 88%|########8 | 135/153 [01:27<00:11,  1.59it/s] 89%|########8 | 136/153 [01:27<00:10,  1.59it/s] 90%|########9 | 137/153 [01:28<00:10,  1.59it/s] 90%|######### | 138/153 [01:28<00:09,  1.58it/s] 91%|######### | 139/153 [01:29<00:08,  1.59it/s] 92%|#########1| 140/153 [01:30<00:08,  1.59it/s]                                                 {'loss': 0.0887, 'grad_norm': 0.30181044340133667, 'learning_rate': 2.191663263037458e-06, 'epoch': 2.75}
+ 92%|#########1| 140/153 [01:30<00:08,  1.59it/s] 92%|#########2| 141/153 [01:30<00:07,  1.60it/s] 93%|#########2| 142/153 [01:31<00:06,  1.59it/s] 93%|#########3| 143/153 [01:32<00:06,  1.59it/s] 94%|#########4| 144/153 [01:32<00:05,  1.59it/s] 95%|#########4| 145/153 [01:33<00:05,  1.59it/s] 95%|#########5| 146/153 [01:34<00:04,  1.59it/s] 96%|#########6| 147/153 [01:34<00:03,  1.59it/s] 97%|#########6| 148/153 [01:35<00:03,  1.59it/s] 97%|#########7| 149/153 [01:35<00:02,  1.60it/s] 98%|#########8| 150/153 [01:36<00:01,  1.59it/s] 99%|#########8| 151/153 [01:37<00:01,  1.60it/s] 99%|#########9| 152/153 [01:37<00:00,  1.59it/s]100%|##########| 153/153 [01:38<00:00,  1.63it/s]                                                 {'train_runtime': 98.4848, 'train_samples_per_second': 24.674, 'train_steps_per_second': 1.554, 'train_loss': 0.5726705929812264, 'epoch': 3.0}
+100%|##########| 153/153 [01:38<00:00,  1.63it/s]100%|##########| 153/153 [01:38<00:00,  1.55it/s]
+
+arm                 : A2_audio_lora
+trainable parameters: 2,064,384 (0.2631%)
+train runtime       : 98.7 s (0.027 GPU-hours)
+peak VRAM           : 6.21 GiB
+wrote /data/shenxin/qwen3_asr_hospital/experiments/general_audiolora_1h_v2/metrics.json
+checkpoint is a PEFT adapter; applying it to the base model
+
+=== evaluating on test_aishell1 ===
+
+==========================================================================
+FINISHED general_audiolora_1h_v2 in 563.6 s
+  test_aishell1            {'returncode': 0, 'outdir': '/data/shenxin/qwen3_asr_hospital/experiments/general_audiolora_1h_v2/test_aishell1'}
+==========================================================================

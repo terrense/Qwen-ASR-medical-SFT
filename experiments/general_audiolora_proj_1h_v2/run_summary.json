@@ -1,0 +1,13 @@
+{
+  "experiment": "general_audiolora_proj_1h_v2",
+  "config": "configs/general_audiolora_proj_1h_v2.yaml",
+  "arm": "A5_audio_lora_proj",
+  "elapsed_seconds": 593.71,
+  "evaluations": {
+    "test_aishell1": {
+      "returncode": 0,
+      "outdir": "/data/shenxin/qwen3_asr_hospital/experiments/general_audiolora_proj_1h_v2/test_aishell1"
+    }
+  },
+  "finished_at": "2026-09-09T04:14:02+0000"
+}
